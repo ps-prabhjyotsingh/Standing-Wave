@@ -1,0 +1,281 @@
+/* prose.css — the reading column, its margin notes, and the placard.
+   Loaded only on pages that carry long-form text. */
+
+.prose {
+  max-width: var(--measure);
+  position: relative;
+  font-size: var(--size-body);
+  line-height: var(--leading-prose);
+}
+
+.prose > * + * {
+  margin-top: var(--s-5);
+}
+
+.prose p {
+  text-wrap: pretty;
+}
+
+.prose h2 {
+  font-size: var(--size-h2);
+  margin-top: var(--s-7);
+}
+
+.prose h3 {
+  font-size: var(--size-h3);
+  font-style: italic;
+  font-weight: 400;
+  margin-top: var(--s-6);
+}
+
+.prose a {
+  text-decoration-line: underline;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--rule);
+  padding-left: var(--s-4);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: var(--s-5);
+}
+
+.prose li + li {
+  margin-top: var(--s-2);
+}
+
+.prose code {
+  font-family: var(--face-mono);
+  font-size: 0.85em;
+  background: var(--bg-raised);
+  border: var(--hairline) solid var(--rule);
+  border-radius: 2px;
+  padding: 0.1em 0.32em;
+}
+
+.prose pre {
+  font-family: var(--face-mono);
+  font-size: var(--size-small);
+  background: var(--bg-raised);
+  border: var(--hairline) solid var(--rule);
+  padding: var(--s-4);
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.prose hr {
+  width: 6rem;
+  margin-inline: auto;
+  margin-block: var(--s-7);
+}
+
+/* --- the reading frame: text column left, margin notes in the gutter --- */
+
+.reading {
+  max-width: calc(var(--measure) + 20rem);
+  margin-inline: auto;
+}
+
+.margin-note {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  border-left: var(--hairline) solid var(--rule);
+  padding-left: var(--s-3);
+}
+
+@media (min-width: 60rem) {
+  .prose .margin-note {
+    position: absolute;
+    left: calc(100% + var(--s-6));
+    width: 15rem;
+    margin-top: 0;
+    /* Vertical position is inherited from where the note sits in the text. */
+  }
+}
+
+@media (max-width: 59.999rem) {
+  .margin-note {
+    margin-left: var(--s-4);
+  }
+}
+
+/* --- essay furniture --- */
+
+.essay-head {
+  margin-bottom: var(--s-7);
+}
+
+.essay-head__number {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.essay-head h1 {
+  font-size: var(--size-display);
+  margin-top: var(--s-3);
+  max-width: 20ch;
+}
+
+.essay-head__dek {
+  font-size: var(--size-lead);
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-top: var(--s-3);
+  max-width: 46ch;
+  line-height: 1.45;
+}
+
+.essay-head__meta {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin-top: var(--s-5);
+  padding-top: var(--s-3);
+  border-top: var(--hairline) solid var(--rule);
+}
+
+.signature {
+  margin-top: var(--s-7);
+  padding-top: var(--s-4);
+  border-top: var(--hairline) solid var(--rule);
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  line-height: 1.9;
+}
+
+.adjacent {
+  margin-top: var(--s-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  justify-content: space-between;
+  font-family: var(--face-mono);
+  font-size: var(--size-small);
+  letter-spacing: 0.04em;
+}
+
+.adjacent a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  max-width: 22rem;
+}
+
+.adjacent a:hover {
+  color: var(--accent);
+}
+
+.adjacent span {
+  display: block;
+  color: var(--ink);
+  font-family: var(--face-prose);
+  font-size: var(--size-body);
+  letter-spacing: 0;
+  margin-top: var(--s-1);
+}
+
+.adjacent a:hover span {
+  color: var(--accent);
+}
+
+/* --- marginalia stream --- */
+
+.stream {
+  max-width: calc(var(--measure) + 2rem);
+  border-top: var(--hairline) solid var(--rule);
+}
+
+.fragment {
+  border-bottom: var(--hairline) solid var(--rule);
+  padding-block: var(--s-5);
+  scroll-margin-top: var(--s-5);
+}
+
+.fragment__meta {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  margin-bottom: var(--s-3);
+  display: flex;
+  gap: var(--s-3);
+}
+
+.fragment__meta a {
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.fragment__meta a:hover,
+.fragment:target .fragment__meta a {
+  color: var(--accent);
+}
+
+.fragment:target {
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 var(--s-4) var(--bg-raised);
+}
+
+.fragment .prose > * + * {
+  margin-top: var(--s-4);
+}
+
+/* --- placard --- */
+
+.placard {
+  background: var(--bg-raised);
+  border: var(--hairline) solid var(--rule);
+  padding: var(--s-6) var(--s-6) var(--s-7);
+  max-width: calc(var(--measure) + 4rem);
+}
+
+.placard > * + * {
+  margin-top: var(--s-4);
+}
+
+.placard h2,
+.placard h3 {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: var(--s-6);
+}
+
+.placard > :first-child {
+  margin-top: 0;
+}
+
+.placard p {
+  max-width: var(--measure);
+  margin-top: var(--s-2);
+}

@@ -1,0 +1,198 @@
+/* piece.css — the stage a Cabinet drawer opens onto, and its controls. */
+
+.piece-head {
+  margin-bottom: var(--s-5);
+}
+
+.piece-head h1 {
+  font-size: var(--size-h1);
+  font-weight: 400;
+}
+
+.piece-head__number {
+  font-family: var(--face-mono);
+  font-size: var(--size-small);
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-right: var(--s-2);
+}
+
+.stage {
+  position: relative;
+  min-height: 60vh;
+  background: var(--bg-raised);
+  border: var(--hairline) solid var(--rule);
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.stage__host {
+  position: absolute;
+  inset: 0;
+}
+
+.stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stage__still {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.stage__noscript {
+  padding: var(--s-4);
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+/* --- controls: present, quiet, legible when you go looking --- */
+
+.controls {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--bg-raised) 82%, transparent);
+  border-top: var(--hairline) solid var(--rule);
+  opacity: 0.42;
+  transition: opacity var(--speed) ease;
+}
+
+.stage:hover .controls,
+.controls:focus-within {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .controls {
+    opacity: 1;
+  }
+}
+
+.controls button {
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--ink-soft);
+  border: var(--hairline) solid var(--rule);
+  padding: 0.2em 0.7em;
+  background: var(--bg);
+}
+
+.controls button:hover,
+.controls button[aria-pressed='true'] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  white-space: nowrap;
+}
+
+.controls input[type='range'] {
+  accent-color: var(--accent);
+  width: 6.5rem;
+  height: 1rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls select,
+.controls input[type='text'] {
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: var(--hairline) solid var(--rule);
+  padding: 0.2em 0.4em;
+}
+
+.controls .readout {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.placard-wrap {
+  margin-top: var(--s-6);
+}
+
+/* --- cabinet index: a run of drawers --- */
+
+.drawers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: var(--hairline) solid var(--rule);
+  max-width: calc(var(--measure) + 6rem);
+}
+
+.drawers li {
+  border-bottom: var(--hairline) solid var(--rule);
+}
+
+.drawers a {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--s-2) var(--s-4);
+  align-items: baseline;
+  padding-block: var(--s-4);
+  text-decoration: none;
+  transition: background var(--speed) ease, padding-left var(--speed) ease;
+}
+
+.drawers a:hover {
+  background: var(--bg-raised);
+}
+
+.drawers__number {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  padding-left: var(--s-2);
+}
+
+.drawers a:hover .drawers__number {
+  color: var(--accent);
+}
+
+.drawers__name {
+  font-size: var(--size-lead);
+}
+
+.drawers__why {
+  grid-column: 2;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-wrap: pretty;
+  padding-right: var(--s-4);
+}
+
+@media (max-width: 34rem) {
+  .drawers a {
+    grid-template-columns: 1fr;
+  }
+
+  .drawers__why {
+    grid-column: 1;
+  }
+}

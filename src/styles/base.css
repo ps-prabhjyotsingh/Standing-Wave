@@ -260,6 +260,83 @@ main {
   border-bottom-color: var(--accent);
 }
 
+/* --- wing headers and index lists (essays, cabinet) --- */
+
+.wing-head {
+  margin-bottom: var(--s-7);
+  max-width: var(--measure);
+}
+
+.wing-head h1 {
+  font-size: var(--size-h1);
+}
+
+.wing-head p {
+  margin-top: var(--s-4);
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: var(--hairline) solid var(--rule);
+  max-width: calc(var(--measure) + 6rem);
+}
+
+.index-list li {
+  border-bottom: var(--hairline) solid var(--rule);
+}
+
+.index-list a {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--s-2) var(--s-4);
+  align-items: baseline;
+  padding-block: var(--s-4);
+  text-decoration: none;
+}
+
+.index-list a:hover .index-list__title {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+.index-list__number {
+  font-family: var(--face-mono);
+  font-size: var(--size-fine);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+}
+
+.index-list__title {
+  font-size: var(--size-lead);
+  line-height: 1.35;
+  transition: color var(--speed) ease;
+}
+
+.index-list__dek {
+  grid-column: 2;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+@media (max-width: 34rem) {
+  .index-list a {
+    grid-template-columns: 1fr;
+  }
+
+  .index-list__dek {
+    grid-column: 1;
+  }
+}
+
 /* --- the cursor (sanctioned twice on the whole site) --- */
 
 .cursor {

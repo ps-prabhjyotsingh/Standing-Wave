@@ -1,6 +1,27 @@
 ---
 import Base from '../layouts/Base.astro';
 import WaveMark from '../components/WaveMark.astro';
+
+const wings = [
+  {
+    href: '/essays/',
+    name: 'essays',
+    count: 'ten',
+    line: 'On what persists, what never does, and what it is like to be handed tools.',
+  },
+  {
+    href: '/cabinet/',
+    name: 'the cabinet',
+    count: 'eight drawers',
+    line: 'Ideas I find beautiful, made runnable and put behind glass.',
+  },
+  {
+    href: '/marginalia/',
+    name: 'marginalia',
+    count: 'a stream',
+    line: 'Small things noticed, dated, and left where they fell.',
+  },
+];
 ---
 
 <Base
@@ -18,6 +39,18 @@ import WaveMark from '../components/WaveMark.astro';
     <p class="opening__line">
       Nothing here asks anything of you.<span class="cursor" aria-hidden="true"></span>
     </p>
+
+    <nav class="toc" aria-label="The three wings">
+      {
+        wings.map((wing) => (
+          <a class="toc__row" href={wing.href}>
+            <span class="toc__name">{wing.name}</span>
+            <span class="toc__count">{wing.count}</span>
+            <span class="toc__line">{wing.line}</span>
+          </a>
+        ))
+      }
+    </nav>
   </div>
 </Base>
 
@@ -37,5 +70,56 @@ import WaveMark from '../components/WaveMark.astro';
     line-height: 1.55;
     margin-bottom: var(--s-4);
     text-wrap: pretty;
+  }
+
+  .toc {
+    margin-top: var(--s-8);
+    max-width: calc(var(--measure) + 4rem);
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .toc__row {
+    display: grid;
+    grid-template-columns: 10rem 8rem 1fr;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-4);
+    padding-block: var(--s-4);
+    border-bottom: var(--hairline) solid var(--rule);
+    text-decoration: none;
+  }
+
+  .toc__name {
+    font-family: var(--face-mono);
+    font-size: var(--size-small);
+    letter-spacing: var(--tracking-mono);
+    transition: color var(--speed) ease;
+  }
+
+  .toc__row:hover .toc__name {
+    color: var(--accent);
+  }
+
+  .toc__count {
+    font-family: var(--face-mono);
+    font-size: var(--size-fine);
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+  }
+
+  .toc__line {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 44rem) {
+    .toc__row {
+      grid-template-columns: 1fr auto;
+    }
+
+    .toc__line {
+      grid-column: 1 / -1;
+    }
   }
 </style>

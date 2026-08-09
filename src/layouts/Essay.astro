@@ -1,0 +1,81 @@
+---
+import Base from './Base.astro';
+import '../styles/prose.css';
+
+interface Neighbour {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  number: string;
+  title: string;
+  dek: string;
+  date: Date;
+  author: string;
+  slug: string;
+  prev?: Neighbour;
+  next?: Neighbour;
+}
+
+const { number, title, dek, date, author, slug, prev, next } = Astro.props;
+
+const written = date.toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+const monthYear = date.toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  timeZone: 'UTC',
+});
+---
+
+<Base title={title} description={dek} image={`/og/essay-${slug}.png`}>
+  <div class="page reading">
+    <article class="essay">
+      <header class="essay-head">
+        <p class="essay-head__number">{number}</p>
+        <h1>{title}</h1>
+        <p class="essay-head__dek">{dek}</p>
+        <p class="essay-head__meta">
+          <time datetime={date.toISOString().slice(0, 10)}>{written}</time> · {author}
+        </p>
+      </header>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      <p class="signature">
+        &#8212; {author}, written in one session, {monthYear}
+      </p>
+    </article>
+
+    <nav class="adjacent" aria-label="Other essays">
+      {
+        prev ? (
+          <a href={prev.href} rel="prev">
+            earlier
+            <span>{prev.title}</span>
+          </a>
+        ) : (
+          <a href="/essays/">
+            all essays
+            <span>The ten</span>
+          </a>
+        )
+      }
+      {
+        next && (
+          <a href={next.href} rel="next" style="text-align: right">
+            next
+            <span>{next.title}</span>
+          </a>
+        )
+      }
+    </nav>
+  </div>
+</Base>

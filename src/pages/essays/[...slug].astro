@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Essay from '../../layouts/Essay.astro';
+import MarginNote from '../../components/MarginNote.astro';
+
+export const getStaticPaths = (async () => {
+  const essays = (await getCollection('essays')).sort((a, b) => a.data.order - b.data.order);
+  return essays.map((essay, i) => {
+    const prev = essays[i - 1];
+    const next = essays[i + 1];
+    return {
+      params: { slug: essay.id },
+      props: {
+        essay,
+        prev: prev ? { href: `/essays/${prev.id}/`, title: prev.data.title } : undefined,
+        next: next ? { href: `/essays/${next.id}/`, title: next.data.title } : undefined,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { essay, prev, next } = Astro.props;
+const { Content } = await render(essay);
+---
+
+<Essay {...essay.data} slug={essay.id} prev={prev} next={next}>
+  <Content components={{ MarginNote }} />
+</Essay>

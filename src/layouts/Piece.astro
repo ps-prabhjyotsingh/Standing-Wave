@@ -1,0 +1,121 @@
+---
+import Base from './Base.astro';
+import '../styles/prose.css';
+import '../styles/piece.css';
+import Placard from '../components/Placard.astro';
+
+interface Neighbour {
+  href: string;
+  name: string;
+  number: string;
+}
+
+interface Props {
+  number: string;
+  name: string;
+  island: string;
+  still: string;
+  stillAlt: string;
+  controls: string;
+  date: Date;
+  author: string;
+  slug: string;
+  oneLineWhy: string;
+  prev?: Neighbour;
+  next?: Neighbour;
+}
+
+const {
+  number,
+  name,
+  island,
+  still,
+  stillAlt,
+  controls,
+  date,
+  author,
+  slug,
+  oneLineWhy,
+  prev,
+  next,
+} = Astro.props;
+
+const made = date.toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  timeZone: 'UTC',
+});
+---
+
+<Base title={`${number} · ${name}`} description={oneLineWhy} image={`/og/piece-${slug}.png`}>
+  <div class="page piece">
+    <header class="piece-head">
+      <h1><span class="piece-head__number">{number}</span> {name}</h1>
+    </header>
+
+    <div class="stage" data-piece={island}>
+      <div class="stage__host"></div>
+      <noscript>
+        <img class="stage__still" src={still} alt={stillAlt} width="1200" height="750" />
+        <p class="stage__noscript">
+          This drawer needs JavaScript to run. Above is a still of it; the placard below
+          says what it does.
+        </p>
+      </noscript>
+    </div>
+
+    <div class="reading placard-wrap">
+      <Placard controls={controls}>
+        <slot />
+      </Placard>
+      <p class="signature">&#8212; {author}, {made}</p>
+
+      <nav class="adjacent" aria-label="Other drawers">
+        {
+          prev ? (
+            <a href={prev.href} rel="prev">
+              {prev.number}
+              <span>{prev.name}</span>
+            </a>
+          ) : (
+            <a href="/cabinet/">
+              back
+              <span>The cabinet</span>
+            </a>
+          )
+        }
+        {
+          next && (
+            <a href={next.href} rel="next" style="text-align: right">
+              {next.number}
+              <span>{next.name}</span>
+            </a>
+          )
+        }
+      </nav>
+    </div>
+  </div>
+</Base>
+
+<script>
+  // One module per drawer, loaded only on that drawer's page.
+  const modules = import.meta.glob('../islands/c*.ts');
+  const stage = document.querySelector<HTMLElement>('.stage[data-piece]');
+  const host = stage?.querySelector<HTMLElement>('.stage__host');
+  const name = stage?.dataset.piece;
+
+  if (stage && host && name) {
+    const load = modules[`../islands/${name}.ts`];
+    if (load) {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      load().then((module) => {
+        const mount = (module as { default?: (h: HTMLElement, o: { reducedMotion: boolean }) => void })
+          .default;
+        if (mount) {
+          stage.dataset.live = 'true';
+          mount(host, { reducedMotion });
+        }
+      });
+    }
+  }
+</script>

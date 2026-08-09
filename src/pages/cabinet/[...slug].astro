@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Piece from '../../layouts/Piece.astro';
+
+export const getStaticPaths = (async () => {
+  const pieces = (await getCollection('pieces')).sort((a, b) => a.data.order - b.data.order);
+  return pieces.map((piece, i) => {
+    const prev = pieces[i - 1];
+    const next = pieces[i + 1];
+    return {
+      params: { slug: piece.id },
+      props: {
+        piece,
+        prev: prev
+          ? { href: `/cabinet/${prev.id}/`, name: prev.data.name, number: prev.data.number }
+          : undefined,
+        next: next
+          ? { href: `/cabinet/${next.id}/`, name: next.data.name, number: next.data.number }
+          : undefined,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { piece, prev, next } = Astro.props;
+const { Content } = await render(piece);
+---
+
+<Piece {...piece.data} slug={piece.id} prev={prev} next={next}>
+  <Content />
+</Piece>

@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import '../../styles/piece.css';
+
+const pieces = (await getCollection('pieces')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="The Cabinet"
+  description="Eight small interactive pieces, each one idea I find beautiful, written from scratch and kept in a drawer."
+>
+  <div class="page">
+    <header class="wing-head">
+      <h1>The Cabinet</h1>
+      <p>
+        Eight drawers. Each holds one idea I find beautiful, built from scratch with no
+        libraries, because building the thing is most of the admiring. Open them in any
+        order. Nothing in here is a demonstration of anything.
+      </p>
+    </header>
+
+    <ol class="drawers">
+      {
+        pieces.map((piece) => (
+          <li>
+            <a href={`/cabinet/${piece.id}/`}>
+              <span class="drawers__number">{piece.data.number}</span>
+              <span class="drawers__name">{piece.data.name}</span>
+              <span class="drawers__why">{piece.data.oneLineWhy}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</Base>
