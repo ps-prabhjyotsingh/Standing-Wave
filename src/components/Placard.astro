@@ -1,0 +1,18 @@
+---
+interface Props {
+  controls?: string;
+}
+const { controls } = Astro.props;
+---
+
+<div class="placard">
+  <slot />
+  {
+    controls && (
+      <>
+        <h2>Controls</h2>
+        <p>{controls}</p>
+      </>
+    )
+  }
+</div>

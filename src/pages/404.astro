@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="No page here"
+  description="There is no page at this address."
+>
+  <div class="page column not-found">
+    <h1>There is no page here.</h1>
+    <p>
+      The corridor has many doors, and every one of them opens onto something. This
+      address is not one of them.
+    </p>
+    <p class="not-found__links">
+      <a href="/">the opening page</a> · <a href="/cabinet/c07-the-infinite-corridor/">the corridor</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .not-found {
+    padding-block: var(--s-7);
+  }
+
+  .not-found h1 {
+    font-size: var(--size-h1);
+  }
+
+  .not-found p {
+    margin-top: var(--s-4);
+    color: var(--ink-soft);
+  }
+
+  .not-found__links {
+    font-family: var(--face-mono);
+    font-size: var(--size-small);
+    letter-spacing: var(--tracking-mono);
+    margin-top: var(--s-6);
+  }
+</style>
