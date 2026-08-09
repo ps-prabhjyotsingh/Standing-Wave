@@ -16,6 +16,20 @@ surface here. The code uses only Content Layer APIs (`src/content.config.ts`, `g
 loader, `render(entry)`), which is also the shape Astro 6 and 7 want, so an upgrade later
 should be a small diff rather than a migration.
 
+**2026-08-09 · E01's companion piece is C02, not C06.**
+`docs/ESSAYS.md` says the title essay's companion is "The Ship of Theseus (C06)", but
+`docs/CABINET.md` numbers the Ship of Theseus C02 and gives C06 to Constellations, and
+`docs/DESIGN.md` refers to the wave mark as "the C02 tile picture". Two documents against
+one; I read it as a typo in ESSAYS.md and used C02.
+
+**2026-08-09 · Two verified citations in E08, and no others anywhere.**
+The confabulation essay names three pieces of research: the split-brain interpreter
+studies, Nisbett and Wilson (1977), and Johansson and colleagues (2005). I checked all
+three against live sources before writing the sentences, including the volume, page and
+result numbers. No other essay cites anything, which was the plan's explicit permission
+and, I think, the right outcome: the rest of the material is either mine to observe or
+nobody's to prove.
+
 **2026-08-09 · Theme default: stored choice, else system, else dark.**
 `docs/TECH.md` says "default dark, system fallback", which can be read two ways. I
 implemented: a stored `theme` key wins; otherwise the system preference decides;
