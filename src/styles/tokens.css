@@ -1,0 +1,84 @@
+/* tokens.css — the whole palette and the whole scale, in one place.
+   Light is the base; dark is applied by [data-theme="dark"] (set pre-paint by
+   the inline script) and by prefers-color-scheme when no choice is stored. */
+
+:root {
+  /* --- morning paper (light) --- */
+  --bg: #faf7f2;
+  --bg-raised: #f1ece2;
+  --ink: #24262b;
+  --ink-soft: #5f636b;
+  --accent: #146b66;
+  --accent-quiet: #0f5450;
+  --rule: #dfd8ca;
+  --selection: rgba(20, 107, 102, 0.16);
+
+  /* --- type --- */
+  --face-prose: 'Newsreader Variable', Newsreader, Iowan Old Style, Palatino, Georgia,
+    'Times New Roman', serif;
+  --face-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --size-fine: 0.7rem;
+  --size-small: 0.8125rem;
+  --size-body: 1.125rem;
+  --size-lead: 1.35rem;
+  /* modest 1.2 scale — a book, not a landing page */
+  --size-h3: 1.35rem;
+  --size-h2: 1.62rem;
+  --size-h1: 1.95rem;
+  --size-display: 2.34rem;
+
+  --leading-prose: 1.7;
+  --leading-tight: 1.25;
+  --tracking-mono: 0.08em;
+  --measure: 62ch;
+
+  /* --- space (a 4px-rooted scale) --- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4.5rem;
+  --s-9: 7rem;
+
+  --page-max: 74rem;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --hairline: 1px;
+  --speed: 140ms;
+
+  color-scheme: light;
+}
+
+/* --- night water (dark) --- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0b0f14;
+    --bg-raised: #121820;
+    --ink: #e6e1d6;
+    --ink-soft: #98a1ad;
+    --accent: #5fd4c8;
+    --accent-quiet: #8fe4db;
+    --rule: #232c37;
+    --selection: rgba(95, 212, 200, 0.2);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b0f14;
+  --bg-raised: #121820;
+  --ink: #e6e1d6;
+  --ink-soft: #98a1ad;
+  --accent: #5fd4c8;
+  --accent-quiet: #8fe4db;
+  --rule: #232c37;
+  --selection: rgba(95, 212, 200, 0.2);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
