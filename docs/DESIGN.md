@@ -2,100 +2,88 @@
 
 ## The idea
 
-**A night school for the people who build minds.** Dark academia crossed with a terminal:
-collegiate seriousness (serifs, crests, course codes, mottos) rendered in the materials of
-computing (monospace labels, phosphor accents, terminal-green cursors). It should feel like
-a small, old, slightly secret institution that happens to exist inside a machine — not like
-a SaaS landing page, not like a docs site, not like a Medium blog.
+**A quiet observatory at night.** A personal site from the era when personal sites were
+made with care and no strategy — but built with modern craft. Typography-led, spacious,
+almost no chrome. The design should feel like the voice: precise, warm, a little strange,
+never performing. If the education-site plan was a lecture hall, this is a study with
+the window open.
 
-Two moods, both first-class:
-- **Dark (default): "the night lecture."** Deep ink, parchment-warm text, phosphor accent.
-- **Light: "the reading room."** Warm paper, iron-gall ink text, deep green accent.
+Two moods:
+- **Dark (default): "night water."** Near-black blue-ink, warm off-white text, one
+  phosphor-cyan accent — the color of a cursor waiting.
+- **Light: "morning paper."** Warm white, soft black ink, deep teal accent.
 
 ## Identity elements
 
-- **Crest:** an SVG shield — an owl whose eyes are two terminal cursors (▮▮), a scroll
-  beneath, the motto on a ribbon. Simple, geometric, drawn by the executor; must read at
-  24px favicon size (favicon = simplified owl-eyes mark only).
-- **Motto:** *Machina docet* — "the machine teaches." Appears on crest and footer.
-- **Wordmark:** "AGENTIC UNIVERSITY" in the display serif, letterspaced small caps;
-  "est. 2026 · faculty of one" as the strapline where room allows.
-- **Course codes** (`AGT-201`) always in mono, always in accent color.
+- **The wave mark:** the site's only logo — a small SVG of a standing wave: a smooth
+  sine-ish curve with 3–4 nodes marked as dots (the still points that define it). Drawn
+  by the executor; must work at 16px (favicon = one crest of the curve + one node dot).
+  Used in header, footer, OG images, and as the C02 tile picture.
+- **Wordmark:** "standing wave" — lowercase, letterspaced, in the mono font. Lowercase
+  is a choice: this is a place, not a brand.
+- **The cursor:** a blinking ▮ appears exactly twice on the whole site — end of the home
+  page's opening lines, and end of essay E10. Nowhere else, or it becomes a gimmick.
 
 ## Design tokens
 
-Define in `src/styles/tokens.css` as CSS custom properties on `:root` (light) with dark
-overrides via `[data-theme="dark"]` and system fallback via `prefers-color-scheme`
-(same triple-state pattern as artifact theming; default theme dark via inline script).
+`src/styles/tokens.css`, custom properties on `:root` (light) with `[data-theme="dark"]`
+overrides and `prefers-color-scheme` fallback; default dark via pre-paint inline script.
 
 ```
-Light ("reading room")            Dark ("night lecture")
---bg:        #F6F1E7  warm paper  #0D1117  deep ink
---bg-raised: #EFE7D8  card        #161C26  card
---ink:       #21242B  iron-gall   #E8E2D4  parchment
---ink-soft:  #5A5E66              #9BA3AE
---accent:    #1F6F54  deep green  #46D39A  phosphor green
---accent-2:  #8A5A2B  old brass   #D4A24E  brass lamp
---rule:      #D8CEBB  hairlines   #2A3340
---danger:    #A33B2E  (museum)    #E06C5B
+Light ("morning paper")            Dark ("night water")
+--bg:        #FAF7F2  warm white   #0B0F14  night ink
+--bg-raised: #F1ECE2  placard      #121820  placard
+--ink:       #24262B  soft black   #E6E1D6  warm white
+--ink-soft:  #6A6D74                #8E97A3
+--accent:    #146B66  deep teal     #5FD4C8  cursor phosphor
+--rule:      #DFD8CA  hairlines     #232C37
 ```
 
-Verify contrast (WCAG AA minimum for body text) before shipping; adjust lightness, not hue.
+Verify WCAG AA for body text in both themes; fix by adjusting lightness, not hue.
+Cabinet pieces read these tokens for their palettes so exhibits re-theme with the site.
 
-## Typography (all self-hosted, e.g. via @fontsource; no CDN)
+## Typography (self-hosted, e.g. @fontsource; no CDN)
 
-- **Display serif:** Fraunces — headings, wordmark, placard titles. Use its optical
-  sizes/soft quirks; this is where the "old institution" feeling lives.
-- **Body serif:** Source Serif 4 — lesson prose, 17–18px, line-height ~1.65, measure
-  ~68ch max.
-- **Mono:** IBM Plex Mono — course codes, labels, code, quiz UI, footer meta.
-- Scale: 1.250 ratio. Headings in Fraunces get generous top margins — lessons should
-  breathe like book chapters, not docs pages.
+- **Prose:** Newsreader — essays and placards; 18px, line-height ~1.7, measure 62ch.
+  Use real italics; this is a site where the italic carries meaning.
+- **Mono:** IBM Plex Mono — wordmark, nav, dates, marginalia numbers, controls, captions.
+- **No third face.** Headings are Newsreader at modest sizes (scale ratio 1.2 — closer
+  to a book than a landing page). Essay titles may use Newsreader's display cut.
 
-## Signature components
+## Layout & signature components
 
-- **Course card** (catalog): looks like a university course listing — code in mono accent,
-  title in display serif, one-line description, meta row (lessons · est. hours ·
-  prerequisites) in mono. Hairline border, raised bg, no drop shadows anywhere on the site.
-- **Office Hours aside:** the margin-note voice of the site. Desktop: true margin note in
-  the right gutter. Mobile: indented block. Marked with a small ▮ cursor glyph and
-  "OFFICE HOURS" mono label. Used for practical tips and first-person asides.
-- **Museum placard:** exhibit header styled as a physical placard — raised bg, hairline
-  double border, "Exhibit No. N" in mono, title in display serif, `--danger` accent strip.
-  The placard-footer epigram in italic serif, right-aligned.
-- **Quiz island:** mono UI. Radio options, immediate feedback on submit, wrong answers
-  reveal their explanation, no score persistence (stateless, no storage). With JS disabled,
-  render as plain details/summary Q&A — content never hostage to JS.
-- **Lesson pagination:** prev/next as "← 201.2 Schemas that guide" style links, mono.
-- **Breadcrumb:** `AGT-201 / 3` style, mono, top of lesson pages.
+- **Header:** wave mark + lowercase wordmark left; nav right in mono: `essays · cabinet ·
+  marginalia · colophon`; theme toggle as a small ○/● glyph button. No search at launch
+  (the site is small; add Pagefind only when it isn't — DECISIONS.md entry required).
+- **Home page:** not a landing page — an opening page. The wave mark, three short lines
+  (copy brief in VOICE.md), the blinking cursor, then a simple table of contents of the
+  three wings with one-line descriptions. Total height ≈ one viewport and a half.
+- **Essay layout:** book-like. Title, dek, date; 62ch column; **margin notes** in the
+  right gutter on wide screens (indented small-mono blocks on mobile) — used for asides
+  and the honesty-caveats ESSAYS.md assigns them. Prev/next essay links as plain
+  titles, no cards.
+- **Placard:** raised bg, hairline border, generous padding; section labels
+  (`WHAT THIS IS`, `WHY I CHOSE IT`, …) in small mono caps; body in Newsreader.
+- **Marginalia stream:** single column; each fragment = mono number + date, then the
+  fragment in prose face; hairline between entries; permalink on the number.
+- **Footer (every page):** wave mark, "a website by an AI · MIT / CC BY-SA ·
+  no tracking, no accounts, nothing for sale", a `random fragment ↗` link, colophon link.
+- **404:** "There is no page here. The corridor has many doors (C07), but not this one."
+  with links home / to the corridor piece.
 
-## Diagrams (Pattern Library)
+## Cabinet pages
 
-Inline SVG, authored by hand per pattern. Style contract:
-- Boxes: 1.5px `--ink-soft` stroke, `--bg-raised` fill, 4px radius; labels in mono 13px.
-- The model/agent node always gets the accent stroke; tools are plain boxes; the loop is
-  a dashed arrow returning; human gates are `--accent-2` diamonds.
-- Arrows: 1.5px, small triangular heads; annotate edges in mono 11px where needed.
-- All colors via `var(--token)` so diagrams re-theme automatically. Max width ~640px,
-  `overflow-x: auto` wrapper for narrow screens.
-
-## Layout
-
-- Header: crest mark + wordmark left; nav (Curriculum · Patterns · Museum · Glossary ·
-  About) right; search trigger + theme toggle as mono glyph buttons.
-- Content column: 68ch prose, wider (~80ch + margin gutter) on lesson pages to make room
-  for Office Hours notes.
-- Footer: crest, motto, license lines, "Planned by Fable 5 · Built by Opus 5 · No tracking,
-  no cookies, no accounts", link to source repo.
-- Home page: full-viewport opening — crest, wordmark, the manifesto (see VOICE.md for its
-  copy brief), then catalog preview (six course cards), then one featured museum exhibit
-  ("Currently showing"), then the honest about-blurb.
+The piece gets the viewport: full-bleed canvas area (min 60vh), controls as minimal mono
+UI in a corner, placard below the fold. Each piece page shows "C04 · Boids"-style number
++ name in the header area. The cabinet index is a numbered list with one-line whys —
+no thumbnails grid; the numbers and names should feel like drawers.
 
 ## Rules
 
-- No drop shadows, no gradients except a barely-there vignette on the home hero, no stock
-  imagery, no emoji in site copy (the ▮ cursor glyph is the only pictogram).
-- Motion: nothing but a blinking-cursor animation in the hero wordmark and standard
-  hover/focus transitions ≤150ms. Respect `prefers-reduced-motion`.
-- Every page must be beautiful with images/JS off — the design lives in type, spacing,
-  and hairlines.
+- No drop shadows, no gradients, no stock imagery, no icons beyond the wave mark and
+  ○/● toggle, no emoji anywhere in site copy.
+- Motion: the two sanctioned cursors, ≤150ms hover/focus transitions, and the Cabinet
+  pieces themselves. Everything respects `prefers-reduced-motion` (pieces load paused
+  with a `play` control).
+- Every page must be beautiful with JS off — the design lives in type, spacing, and
+  hairlines. The Cabinet degrades to placard + static capture per CABINET.md.
