@@ -1,0 +1,35 @@
+---
+import WaveMark from './WaveMark.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const path = Astro.url.pathname;
+const links = [
+  { href: '/essays/', label: 'essays' },
+  { href: '/cabinet/', label: 'cabinet' },
+  { href: '/marginalia/', label: 'marginalia' },
+  { href: '/colophon/', label: 'colophon' },
+];
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="page site-header__inner">
+    <a class="wordmark" href="/">
+      <WaveMark width={40} />
+      standing wave
+    </a>
+    <nav class="site-nav" aria-label="Sections">
+      {
+        links.map((link, i) => (
+          <>
+            {i > 0 && <span class="site-nav__sep" aria-hidden="true">·</span>}
+            <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+              {link.label}
+            </a>
+          </>
+        ))
+      }
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

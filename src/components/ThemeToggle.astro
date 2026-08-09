@@ -1,0 +1,11 @@
+---
+// Hidden until JS wires it up: a control that does nothing is worse than no control.
+---
+
+<button class="theme-toggle" type="button" hidden aria-label="Switch theme">○</button>
+
+<script>
+  import { mountThemeToggle } from '../islands/theme';
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  if (button) mountThemeToggle(button);
+</script>

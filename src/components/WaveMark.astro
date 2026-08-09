@@ -1,0 +1,38 @@
+---
+// The site's only logo: a standing wave. Two full periods of a sine drawn in
+// currentColor, with the three interior nodes — the points that never move —
+// marked as dots. Cubic segments, one per half period.
+interface Props {
+  width?: number;
+  nodes?: boolean;
+  class?: string;
+  title?: string;
+}
+const { width = 64, nodes = true, class: className, title } = Astro.props;
+const height = Math.round((width * 28) / 64);
+---
+
+<svg
+  class={className}
+  width={width}
+  height={height}
+  viewBox="0 0 64 28"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  role={title ? 'img' : 'presentation'}
+  aria-hidden={title ? undefined : 'true'}
+>
+  {title && <title>{title}</title>}
+  <path d="M0 14 C4 2 12 2 16 14 C20 26 28 26 32 14 C36 2 44 2 48 14 C52 26 60 26 64 14" />
+  {
+    nodes && (
+      <g stroke="none" fill="currentColor">
+        <circle cx="16" cy="14" r="2" />
+        <circle cx="32" cy="14" r="2" />
+        <circle cx="48" cy="14" r="2" />
+      </g>
+    )
+  }
+</svg>
