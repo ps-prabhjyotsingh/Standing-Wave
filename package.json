@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "verify": "node scripts/verify-dist.mjs"
+    "verify": "node scripts/verify-dist.mjs",
+    "csp": "node scripts/csp-header.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.14",

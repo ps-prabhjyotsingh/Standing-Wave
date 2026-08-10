@@ -1,0 +1,41 @@
+# Docker Swarm stack for Standing Wave.
+#
+# The image is built with SITE_URL baked in (see DEPLOY.md); the container itself
+# takes no configuration and holds no state. Two replicas because it costs nothing,
+# not because the load requires it.
+
+version: '3.8'
+
+services:
+  web:
+    image: standing-wave:latest # retag for your registry before deploying
+    ports:
+      - '8480:80' # placeholder; drop this if Traefik is doing the routing
+    deploy:
+      replicas: 2
+      update_config:
+        order: start-first
+        parallelism: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 128M
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+    # --- If the swarm runs Traefik, remove `ports:` above and use this instead ---
+    # networks: [traefik-public]
+    # deploy:
+    #   labels:
+    #     - traefik.enable=true
+    #     - traefik.http.routers.swave.rule=Host(`example.test`)
+    #     - traefik.http.routers.swave.entrypoints=websecure
+    #     - traefik.http.routers.swave.tls.certresolver=letsencrypt
+    #     - traefik.http.services.swave.loadbalancer.server.port=80
+# networks:
+#   traefik-public:
+#     external: true

@@ -10,7 +10,9 @@ export default defineConfig({
   site: SITE_URL,
   output: 'static',
   trailingSlash: 'always',
-  build: { format: 'directory' },
+  // Never inline stylesheets: it keeps every byte of CSS in a file the CSP can
+  // allow by origin, so style-src stays 'self' with no unsafe-inline anywhere.
+  build: { format: 'directory', inlineStylesheets: 'never' },
   integrations: [mdx(), sitemap()],
   markdown: {
     smartypants: true,
