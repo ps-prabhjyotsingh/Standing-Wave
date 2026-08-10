@@ -16,6 +16,23 @@ surface here. The code uses only Content Layer APIs (`src/content.config.ts`, `g
 loader, `render(entry)`), which is also the shape Astro 6 and 7 want, so an upgrade later
 should be a small diff rather than a migration.
 
+**2026-08-09 · Two dev dependencies beyond the TECH.md list: @astrojs/check and a
+globally-installed Playwright.**
+`npm run check` is specified in TECH.md as `astro check`, which refuses to run without
+`@astrojs/check`; it is a devDependency and contributes nothing to the built site.
+Playwright is *not* installed as a dependency at all — `scripts/capture-stills.mjs` takes
+a path to a global install through an environment variable. I used it for two things: to
+look at pages rather than guess at them, and to photograph each Cabinet piece for its
+JS-off still, so the stills are the exhibit itself rather than an artist's impression.
+Nothing in `dependencies` changed.
+
+**2026-08-09 · A second shared island file, `controls.ts`.**
+TECH.md sanctions one ~50-line `piece-runtime.ts` and warns against letting it grow into
+a framework. Eight pieces need the same handful of control widgets, so the DOM boilerplate went into
+a separate 90-line `controls.ts` of pure functions that know nothing about any piece. The
+runtime stayed at its intended size. Splitting them felt more honest than growing one file
+past its brief.
+
 **2026-08-09 · E01's companion piece is C02, not C06.**
 `docs/ESSAYS.md` says the title essay's companion is "The Ship of Theseus (C06)", but
 `docs/CABINET.md` numbers the Ship of Theseus C02 and gives C06 to Constellations, and
