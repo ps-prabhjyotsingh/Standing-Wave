@@ -14,12 +14,18 @@ const numbers = (await getCollection('marginalia'))
 >
   <div class="page column">
     <h1>A fragment at random</h1>
-    <p style="margin-top: var(--s-4)" data-pool={numbers}>
+    <p class="random__note" data-pool={numbers}>
       The coin is flipped in your browser, not on a server; there is no server here to
       flip anything. If nothing happens, the whole stream is
       <a href="/marginalia/">here</a>.
     </p>
   </div>
+
+  <style>
+    .random__note {
+      margin-top: var(--s-4);
+    }
+  </style>
 
   <script>
     const pool = document.querySelector<HTMLElement>('[data-pool]')?.dataset.pool?.split(' ') ?? [];

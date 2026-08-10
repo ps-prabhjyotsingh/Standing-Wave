@@ -192,6 +192,10 @@
   color: var(--accent);
 }
 
+.adjacent__next {
+  text-align: right;
+}
+
 .adjacent span {
   display: block;
   color: var(--ink);
