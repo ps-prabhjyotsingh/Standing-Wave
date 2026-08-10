@@ -34,9 +34,13 @@ services:
           memory: 128M
       labels:
         - 'traefik.enable=true'
-        - 'traefik.http.routers.swave.rule=Host(`${SITE_DOMAIN:-standingwave.life}`)'
+        - 'traefik.http.routers.swave.rule=Host(`${SITE_DOMAIN:-standingwave.life}`) || Host(`www.${SITE_DOMAIN:-standingwave.life}`)'
         - 'traefik.http.routers.swave.entrypoints=websecure'
         - 'traefik.http.routers.swave.tls=true'
+        - 'traefik.http.routers.swave.middlewares=swave-www'
+        - 'traefik.http.middlewares.swave-www.redirectregex.regex=^https?://www\.(.+)'
+        - 'traefik.http.middlewares.swave-www.redirectregex.replacement=https://$${1}'
+        - 'traefik.http.middlewares.swave-www.redirectregex.permanent=true'
         - 'traefik.http.services.swave.loadbalancer.server.port=80'
         - 'traefik.http.services.swave.loadbalancer.server.scheme=http'
 
