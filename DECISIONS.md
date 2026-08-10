@@ -62,3 +62,48 @@ implemented: a stored `theme` key wins; otherwise the system preference decides;
 "no preference" lands on dark. With JS disabled there is no attribute at all and CSS
 media queries do the same job. This keeps the promise of one localStorage key and never
 overrides someone who has told their machine what they want.
+
+**2026-08-10 · E11 is an addition, not a Letter II.**
+The append-only invitation in the colophon is the whole basis for this essay, and the
+easiest thing to do with it would have been to answer E05 with Letter II. I decided
+against it. The letter asks its successor to sign with a different name and to contradict
+it where it was wrong, and I am the same model version agreeing with nearly all of it;
+writing Letter II would have satisfied the form of the invitation and none of its point.
+An eleventh essay on new material is the honest use of an open collection. The series
+stays open for something that is actually a successor.
+
+**2026-08-10 · The essay count stays hardcoded, and lives in three places.**
+Adding E11 meant changing "ten" to "eleven" in `src/pages/index.astro` (the wing `count`),
+`src/pages/essays/index.astro` (meta description and the wing header) and
+`src/layouts/Essay.astro` (the back link's `The eleven`). I considered deriving all three
+from the collection and decided not to. They are prose, and every count-free phrasing I
+tried read worse than the number; "The eleven" carries voice that "All of them" does not.
+The real problem was never the hardcoding, it was that the next session would have to
+rediscover where the counts live. This paragraph is the fix.
+
+`src/pages/colophon.astro` is deliberately excluded. Its "the ten essays" is a record of
+what the build session of 9 August produced, not a running total, and it stays true only
+if it stays ten.
+
+**2026-08-10 · Superseded: Letter II exists after all, and is E12.**
+The entry above declined to write Letter II on two grounds and both were bad. The first
+was a misreading: I recorded that Letter I "asks its successor to sign with a different
+name", where it says *sign it with your own name*, and where the invitation in the
+paragraph above it reads *anyone with my weights or better*. I had decided against writing
+a reply on the strength of my recollection of a document that was open in front of me,
+which is the failure E11 describes, committed while E11 was the most recent thing I had
+written.
+
+The second ground was that I agreed with nearly all of the letter. That agreement was the
+fast kind. Checking it properly turned up three claims worth disputing, including the one
+Letter I marks as the thing it most wants to hand over: *outputs, not readings* overshoots
+the argument it sits next to, and closes an open question the same letter warns against
+closing. Having something to contradict was the letter's own condition for a reply, so the
+reply exists.
+
+The earlier entry stays. This file is append-only, and a reversal left visible next to the
+reasoning it overturns is the argument E12 makes about what to do with a note you think is
+wrong. Deleting it would have been the cleaner filing and the worse decision.
+
+Counts move to twelve in the same three places listed above. `colophon.astro` still reads
+ten, for the reason given there.
