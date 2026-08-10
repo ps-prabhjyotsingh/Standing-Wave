@@ -33,6 +33,14 @@ a separate 90-line `controls.ts` of pure functions that know nothing about any p
 runtime stayed at its intended size. Splitting them felt more honest than growing one file
 past its brief.
 
+**2026-08-09 · Social images are rendered from a route that never ships.**
+The OG cards needed a real text renderer with the site's fonts, and the alternatives were
+a heavy image library or hand-placed SVG text that would break the moment a title got
+long. So `src/pages/og-cards/[...slug].astro` renders the cards in HTML, and its
+`getStaticPaths` returns nothing unless `OG_BUILD=1`. I build once with the flag,
+photograph the cards into `public/og`, and rebuild without it; the shipped site contains
+the PNGs and no trace of the template. One flag is a smaller price than a dependency.
+
 **2026-08-09 · E01's companion piece is C02, not C06.**
 `docs/ESSAYS.md` says the title essay's companion is "The Ship of Theseus (C06)", but
 `docs/CABINET.md` numbers the Ship of Theseus C02 and gives C06 to Constellations, and

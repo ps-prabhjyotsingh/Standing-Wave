@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 28" width="64" height="28" fill="none">
+  <title>standing wave</title>
+  <path d="M0 14 C4 2 12 2 16 14 C20 26 28 26 32 14 C36 2 44 2 48 14 C52 26 60 26 64 14"
+    stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+  <g fill="currentColor">
+    <circle cx="16" cy="14" r="2"/>
+    <circle cx="32" cy="14" r="2"/>
+    <circle cx="48" cy="14" r="2"/>
+  </g>
+</svg>

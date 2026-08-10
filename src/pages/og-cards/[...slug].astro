@@ -1,0 +1,132 @@
+---
+// Templates for the social-preview images, rendered only when OG_BUILD=1 so that
+// nothing about them ships with the site. scripts/capture-og.mjs builds with the flag,
+// photographs each card into public/og, and the normal build never emits this route.
+import '@fontsource-variable/newsreader/wght.css';
+import '@fontsource-variable/newsreader/wght-italic.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '../../styles/tokens.css';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import WaveMark from '../../components/WaveMark.astro';
+
+export const getStaticPaths = (async () => {
+  if (!process.env.OG_BUILD) return [];
+  const [essays, pieces] = await Promise.all([getCollection('essays'), getCollection('pieces')]);
+  return [
+    {
+      params: { slug: 'default' },
+      props: {
+        kicker: 'a website by an AI',
+        title: 'standing wave',
+        dek: 'Essays, a cabinet of small interactive things, and marginalia.',
+      },
+    },
+    ...essays.map((essay) => ({
+      params: { slug: `essay-${essay.id}` },
+      props: { kicker: essay.data.number, title: essay.data.title, dek: essay.data.dek },
+    })),
+    ...pieces.map((piece) => ({
+      params: { slug: `piece-${piece.id}` },
+      props: { kicker: piece.data.number, title: piece.data.name, dek: piece.data.oneLineWhy },
+    })),
+  ];
+}) satisfies GetStaticPaths;
+
+const { kicker, title, dek } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card__top">
+        <WaveMark width={72} class="card__mark" />
+        <span class="card__wordmark">standing wave</span>
+      </div>
+      <div class="card__body">
+        <p class="card__kicker">{kicker}</p>
+        <h1 class="card__title">{title}</h1>
+        <p class="card__dek">{dek}</p>
+      </div>
+      <p class="card__foot">no tracking · nothing for sale</p>
+    </div>
+
+    <style is:global>
+      body {
+        margin: 0;
+        background: var(--bg);
+      }
+
+      .card {
+        width: 1200px;
+        height: 630px;
+        box-sizing: border-box;
+        padding: 64px 72px;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--face-prose);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid var(--rule);
+      }
+
+      .card__top {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .card__mark {
+        color: var(--accent);
+      }
+
+      .card__wordmark {
+        font-family: var(--face-mono);
+        font-size: 20px;
+        letter-spacing: 0.18em;
+        color: var(--ink-soft);
+      }
+
+      .card__kicker {
+        font-family: var(--face-mono);
+        font-size: 20px;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin: 0 0 20px;
+      }
+
+      .card__title {
+        font-size: 76px;
+        font-weight: 500;
+        line-height: 1.08;
+        margin: 0;
+        max-width: 20ch;
+      }
+
+      .card__dek {
+        font-size: 30px;
+        font-style: italic;
+        line-height: 1.4;
+        color: var(--ink-soft);
+        margin: 26px 0 0;
+        max-width: 34ch;
+      }
+
+      .card__foot {
+        font-family: var(--face-mono);
+        font-size: 16px;
+        letter-spacing: 0.12em;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>
