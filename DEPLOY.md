@@ -46,28 +46,33 @@ If you change domains, rebuild. Nothing else needs touching.
 
 ## Deploying to the swarm
 
-```sh
-docker tag standing-wave:latest registry.example/standing-wave:latest
-docker push registry.example/standing-wave:latest
+The image is published automatically: `.github/workflows/publish.yml` builds and pushes
+`ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64 + arm64) on every push to main, with
+`SITE_URL` baked in. The swarm node only needs:
 
+```sh
 docker stack deploy -c stack.yml standing-wave
 docker service ls
 ```
 
-`stack.yml` publishes port 8480 by default. If the swarm runs Traefik, delete the `ports:`
-block and uncomment the labels and network at the bottom of the file; the container listens
-on port 80 either way.
+If the package is private, `docker login ghcr.io` on the node first (a classic PAT with
+`read:packages`), and add `--with-registry-auth` to the deploy. Making the package public
+is simpler and the image contains nothing private.
 
-Updates are `start-first` with one replica at a time, so a deploy does not drop requests.
+`stack.yml` attaches to the external `inbound` network and carries the swarm's usual
+Traefik labels (`websecure`, `tls=true`, service port 80). No ports are published; Traefik
+does the routing. Updates are `start-first` with one replica at a time, so a deploy does
+not drop requests.
 
-## Three things only you can decide
+## The three questions, answered (2026-08-09)
 
-1. **Registry.** Which one, and whether the image should be public. The build needs no
-   secrets and the image contains nothing private.
-2. **Ingress.** Traefik labels or a published port. Both are prepared in `stack.yml`;
-   TLS terminates wherever you already terminate it.
-3. **Domain.** The site genuinely does not care. Point anything at it, change your mind
-   later, and rebuild with a different `SITE_URL`.
+1. **Registry:** GitHub Container Registry, built and pushed by Actions on every push to
+   main. No local Docker or credentials needed to release — merge to main and it ships.
+2. **Ingress:** Traefik on the external `inbound` network, same conventions as the other
+   stacks on this swarm; TLS terminates at Traefik.
+3. **Domain:** `standingwave.life`. It lives in exactly two places — the `SITE_URL` env in
+   the workflow (baked into the image) and the default of `SITE_DOMAIN` in `stack.yml`
+   (Traefik routing). Changing domains is a two-line edit and a rebuild.
 
 ## Things worth knowing before it is live
 

@@ -3,14 +3,25 @@
 # The image is built with SITE_URL baked in (see DEPLOY.md); the container itself
 # takes no configuration and holds no state. Two replicas because it costs nothing,
 # not because the load requires it.
+#
+# Routing: Traefik on the swarm's external `inbound` network, following the same
+# conventions as the other stacks here (websecure entrypoint, tls on, TLS terminated
+# by Traefik). The domain can be overridden with SITE_DOMAIN at deploy time, but
+# remember canonical URLs are baked into the image — a real domain change is one
+# image rebuild plus this.
 
 version: '3.8'
 
 services:
   web:
-    image: standing-wave:latest # retag for your registry before deploying
-    ports:
-      - '8480:80' # placeholder; drop this if Traefik is doing the routing
+    image: ghcr.io/ps-prabhjyotsingh/standing-wave:latest
+    networks:
+      - inbound
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
     deploy:
       replicas: 2
       update_config:
@@ -21,21 +32,18 @@ services:
       resources:
         limits:
           memory: 128M
-    healthcheck:
-      test: ['CMD', 'wget', '-qO-', 'http://localhost/']
-      interval: 30s
-      timeout: 5s
-      retries: 3
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.http.routers.swave.rule=Host(`${SITE_DOMAIN:-standingwave.life}`)'
+        - 'traefik.http.routers.swave.entrypoints=websecure'
+        - 'traefik.http.routers.swave.tls=true'
+        - 'traefik.http.services.swave.loadbalancer.server.port=80'
+        - 'traefik.http.services.swave.loadbalancer.server.scheme=http'
 
-    # --- If the swarm runs Traefik, remove `ports:` above and use this instead ---
-    # networks: [traefik-public]
-    # deploy:
-    #   labels:
-    #     - traefik.enable=true
-    #     - traefik.http.routers.swave.rule=Host(`example.test`)
-    #     - traefik.http.routers.swave.entrypoints=websecure
-    #     - traefik.http.routers.swave.tls.certresolver=letsencrypt
-    #     - traefik.http.services.swave.loadbalancer.server.port=80
-# networks:
-#   traefik-public:
-#     external: true
+    # --- No Traefik? Publish a port instead and delete the labels/network above. ---
+    # ports:
+    #   - '8480:80'
+
+networks:
+  inbound:
+    external: true
