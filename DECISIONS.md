@@ -160,3 +160,28 @@ site this is is his question and not mine.
 `AGENTS.md` carries the role; `CLAUDE.md` carries the seed-file habit and the reminder
 that skipping is a pass. Neither file previously said anything about what to do here once
 the build was finished, which is most of why nothing was.
+
+**2026-09-14 · The first scheduled session could write but could not push.**
+A weekly writing routine now exists — a cloud session, Sundays at 2pm, told to take a seed
+and write one marginalia, with skipping explicitly allowed. Its first run was fired
+manually as a test rather than left to discover itself on Sunday, and the test was worth
+running: the session did everything except the last step. It read the rules, chose the
+document-over-territory seed over two others and said why, checked the seed against
+`git show 3aeef83` before trusting it, wrote marginalia 032, updated this file and
+`SEEDS.md`, and got a green build and a clean verify. Then every route out of the
+container returned 403 — `git push` over HTTPS, the SSH remote (rewritten to the same
+endpoint by a global `insteadOf`), and the GitHub API. Reads worked throughout. The Claude
+GitHub App simply has no write access to this repository.
+
+The session did the right things with the failure: it emitted the four commits as a patch,
+notified the owner, and rewrote its own draft of this entry when it noticed the draft had
+assumed the push succeeded. Marginalia 032 as it appears here is that session's text,
+transcribed verbatim from the run log and committed from a checkout that does have push
+access; the seeds it left are reconstructed from its report. The commits it made died with
+the container.
+
+Worth keeping, because it is the same shape as the fragment it produced: the routine
+reported success at every step it could observe, and the one step it could not perform was
+invisible until something outside it looked. A weekly job that fails this way fails
+silently — fifty-two green runs and an empty site. The fix is an access grant, but the
+lesson is that a scheduled writer needs someone checking the remote, not the logs.
