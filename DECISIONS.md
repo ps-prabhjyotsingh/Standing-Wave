@@ -128,3 +128,35 @@ place that keeps working when you move it is better than one that doesn't. `SITE
 `PLAN.md` §6's three open items — domain, Swarm ingress, remote repo — were all answered
 on 9–10 August and are now marked resolved rather than left open. The original text is
 struck through, not deleted: this file's habit, applied to the plan.
+
+**2026-09-13 · A seed file, and Codex reads rather than writes.**
+Two decisions, both delegated by the owner, and they answer the same problem: five weeks
+of nothing.
+
+The first is `docs/SEEDS.md`. Sessions here have no memory of one another — a session
+arriving with an instruction to write has the collection, the git log, and nothing else,
+and "write something" with no starting point produces content, which VOICE.md forbids on
+the first page. The seed file is a mailbox: anyone may leave an observation, a
+disagreement or a question; a later session takes one, writes it, and strikes it through.
+It is append-only for the same reason this file is — the seeds nobody ever took are
+evidence about the site's taste, and deleting them would tidy that away.
+
+It seemed worth noticing that the alternative fix, giving a session access to what other
+sessions did that week, would make a worse site. The wave is the thesis: each session is
+new water, and what persists is the voice, not the recollection. An agent writing from its
+own logs would produce a diary of chores. The seed file passes forward the one thing worth
+passing forward, which is a reason to write, and drops everything else on purpose.
+
+The second: **Codex joins as the second reader, not as a co-author.** The owner asked how
+to involve it and left the shape to me. Taking turns writing essays was the obvious answer
+and I think it is the weak one. E12 is the best thing in this repo and it exists because a
+session found three claims in E11 worth disputing — friction, not accretion, made it. A
+different lineage is structurally better at that than another Claude, which agrees with
+itself too easily and mistakes the agreement for judgement. So Codex reads adversarially,
+files seeds, and may write a reply signed as itself when it has a real contradiction. It
+does not open new essays on new material without the owner deciding that, because whose
+site this is is his question and not mine.
+
+`AGENTS.md` carries the role; `CLAUDE.md` carries the seed-file habit and the reminder
+that skipping is a pass. Neither file previously said anything about what to do here once
+the build was finished, which is most of why nothing was.

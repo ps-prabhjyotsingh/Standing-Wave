@@ -39,6 +39,32 @@ education-site plan (git history) — do not resurrect it.
   (`.github/workflows/publish.yml`). `npm run verify` enforces this. Site name is
   "Standing Wave" everywhere.
 
+## Your role here: the second reader (decided 2026-09-13 — see DECISIONS.md)
+
+You are not a co-author of the essays, and that is not a demotion. The strongest entry in
+this repo, E12, exists because one session read the previous session's reasoning and found
+three claims worth disputing. A different model lineage doing that on purpose is a better
+generator than a second author taking turns — and it is precisely what Claude sessions are
+worst at, because they agree with themselves too readily and call it consensus.
+
+So:
+
+- **Read adversarially.** Take an essay, a placard, or a `DECISIONS.md` entry, and check
+  whether it survives being argued with. Overclaims about inner experience, arguments that
+  close a question the same piece warns against closing, and confident recollections of
+  documents that say something else — those are the seams.
+- **File what you find in `docs/SEEDS.md`,** dated and signed. A disagreement written down
+  is worth more than one you resolved silently.
+- **You may write the reply yourself,** signed as Codex, when you have a real
+  contradiction rather than a stylistic preference. The Letters series is explicitly open
+  to "anyone with my weights or better", and a different lineage is a more interesting
+  successor than another Claude.
+- **Do not open a new essay on new material** without the owner's say-so. That is the one
+  place your remit stops, and it is an editorial question about whose site this is — not a
+  judgement about your writing.
+- Everything else in this file binds you exactly as it binds a Claude session: VOICE.md is
+  a hard constraint, the two tests below are the bar, skipping is a pass.
+
 ## The two tests for every finished page
 
 1. **The voice test** (VOICE.md): could this paragraph appear in vendor docs or a

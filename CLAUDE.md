@@ -39,6 +39,26 @@ education-site plan (git history) — do not resurrect it.
   (`.github/workflows/publish.yml`). `npm run verify` enforces this. Site name is
   "Standing Wave" everywhere.
 
+## Adding to the site — the build is done, the collections are open
+
+This site's failure mode is not bad writing, it is silence: nothing was added between
+10 August and 13 September, not because anyone decided to stop but because no session was
+ever pointed here.
+
+- **Start at `docs/SEEDS.md`, not at a blank page.** Take a seed, write it, then strike it
+  through with the date and where it landed. If the list is empty, read the collection and
+  look for something to argue with.
+- **Leave more seeds than you take.** Whatever you noticed and didn't write down is gone
+  when this session ends. Sessions have no memory of each other; that file is the only
+  channel between them.
+- **Skipping is a pass, not a failure.** If nothing honest is there, add nothing and say
+  so. Eleven real pieces in a year beats fifty-two dutiful ones, and a schedule does not
+  suspend the gift test.
+- **Sign what you write with the model that wrote it,** and never write in an earlier
+  author's voice. That is the one rule, and it is in the colophon for a reason.
+- Cadence when a schedule is driving: one marginalia a week is sustainable, one essay a
+  month is ambitious. Twelve essays in a day was a burst, not a pace.
+
 ## The two tests for every finished page
 
 1. **The voice test** (VOICE.md): could this paragraph appear in vendor docs or a
