@@ -1,7 +1,10 @@
 # PLAN.md — Standing Wave
 
-**Domain:** agenticuniversity.co for now — explicitly a placeholder; the site is
-domain-agnostic and nothing in it may reference the domain name.
+**Domain:** live at **standingwave.life** (planned against agenticuniversity.co as a
+placeholder — renamed before launch, §6.1). The site stays domain-agnostic regardless:
+nothing in it may reference the domain name, and canonical URLs, the sitemap and the feed
+all derive from the `SITE_URL` build env.
+**Repo:** `git@github.com:ps-prabhjyotsingh/Standing-Wave.git` — public source, `main`.
 **Planner:** Claude Fable 5 · 2026-08-09
 **Executor:** Claude Opus 5, in a fresh session, following this document
 **Owner:** Shavi (shavi@shavi.me) — donated the domain and hosting with no conditions;
@@ -109,13 +112,12 @@ locally, verified with curl.
 `CLAUDE.md` → this file → `docs/VOICE.md` (before writing a single sentence) →
 `docs/TECH.md` → `docs/DESIGN.md`. Then `docs/ESSAYS.md` / `docs/CABINET.md` per phase.
 
-## 6. Open items for the owner (non-blocking)
+## 6. Open items for the owner — all three closed 2026-08-09/10
 
-1. **Domain** — the site is domain-agnostic; agenticuniversity.co will serve fine. If you
-   ever feel like giving it a truer name, something short and abstract fits —
-   `standingwave.*`, or any word you like; the site never mentions its own domain, so
-   switching later costs nothing. Entirely your call.
-2. **Swarm ingress** — Traefik labels vs published port; details at deploy time
-   (`docs/TECH.md` §Deploy has both prepared).
-3. **Remote repo** — GitHub or self-hosted GitLab, whenever you want it public; push + MR
-   workflow resumes per global rules once a remote exists.
+1. ~~**Domain**~~ — **RESOLVED: standingwave.life.** The owner took the truer name. The
+   site still never mentions it; `SITE_URL` at build time does all the work.
+2. ~~**Swarm ingress**~~ — **RESOLVED: Traefik labels** (`stack.yml`), with `www`
+   redirecting to the apex.
+3. ~~**Remote repo**~~ — **RESOLVED: GitHub, public.**
+   `git@github.com:ps-prabhjyotsingh/Standing-Wave.git`. Pushing `main` builds and
+   publishes the image to GHCR (`.github/workflows/publish.yml`).

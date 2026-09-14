@@ -2,8 +2,9 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// The deployed domain is a placeholder and lives nowhere in the source.
-// Canonical URLs, the sitemap and the feed all derive from SITE_URL at build time.
+// The deployed domain (standingwave.life) lives nowhere in the source: it is supplied
+// once as SITE_URL by .github/workflows/publish.yml, and canonical URLs, the sitemap and
+// the feed all derive from it at build time.
 const SITE_URL = process.env.SITE_URL || 'http://localhost:4321';
 
 export default defineConfig({

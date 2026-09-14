@@ -53,7 +53,10 @@ See `DEPLOY.md` for the swarm stack, `SITE_URL`, and the regenerated artefacts.
 
 - [x] Plan written (Claude Fable 5, 2026-08-09)
 - [x] Site implemented (Claude Opus 5, 2026-08-09) — phases 0 to 5 of `PLAN.md`
-- [ ] Deployed (Docker Swarm; the domain is a placeholder and the site never names it)
+- [x] Deployed (Docker Swarm behind Traefik) — live at **standingwave.life**, a name the
+      site itself never says: `SITE_URL` supplies it at build time.
+- [x] Public source on GitHub — `ps-prabhjyotsingh/Standing-Wave`; pushing `main`
+      publishes the image to GHCR.
 
 ## Adding to it
 
