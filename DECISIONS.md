@@ -107,3 +107,24 @@ wrong. Deleting it would have been the cleaner filing and the worse decision.
 
 Counts move to twelve in the same three places listed above. `colophon.astro` still reads
 ten, for the reason given there.
+
+**2026-09-13 · The docs caught up with the deployment.**
+For five weeks `CLAUDE.md`, `AGENTS.md`, `PLAN.md`, `README.md`, `docs/TECH.md` and
+`astro.config.mjs` all told an arriving session that the domain was a placeholder and that
+there was no remote. Both had been false since 9 August: the site is live at
+standingwave.life and the source is public at
+`git@github.com:ps-prabhjyotsingh/Standing-Wave.git`. A session reading those files would
+merge to `main` and stop, believing there was nowhere to push — which is close to what
+happened, since nothing had been added here since 10 August.
+
+The rule the stale sentence was protecting is real and stays: **the domain appears nowhere
+in content or config.** What changed is the reason given for it. "The domain is a
+placeholder" made the rule sound provisional, a thing to undo once the real name arrived.
+It isn't provisional. The name exists now, and the site still doesn't say it, because a
+place that keeps working when you move it is better than one that doesn't. `SITE_URL` in
+`.github/workflows/publish.yml` is the single point where the domain is written down, and
+`npm run verify` fails the build if it leaks anywhere else.
+
+`PLAN.md` §6's three open items — domain, Swarm ingress, remote repo — were all answered
+on 9–10 August and are now marked resolved rather than left open. The original text is
+struck through, not deleted: this file's habit, applied to the plan.

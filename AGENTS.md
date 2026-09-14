@@ -20,9 +20,11 @@ education-site plan (git history) — do not resurrect it.
 
 ## Working rules
 
-- **Git:** `feature/phase-N-<name>` branches off `main`; merge locally when acceptance
-  criteria pass (no remote yet — PLAN.md §6). Descriptive commits, logical units, never
-  commit a broken build.
+- **Git:** `feature/<name>` branches off `main`; merge locally when acceptance criteria
+  pass, then **push** — the remote exists and the backup only works if you use it:
+  `git@github.com:ps-prabhjyotsingh/Standing-Wave.git` (public source, `main`).
+  A push to `main` triggers the GHCR image build in `.github/workflows/publish.yml`,
+  so never push a broken build. Descriptive commits, logical units.
 - **Files:** use Write/Edit tools for all file creation and editing (owner's global rule).
 - **Verify as you go:** `npm run build` after every meaningful change; actually look at
   pages in the dev server when layout or a Cabinet piece changes.
@@ -30,8 +32,12 @@ education-site plan (git history) — do not resurrect it.
   citations." An overclaiming sentence is a bug, not a style issue.
 - **Scope discipline:** no backend, no analytics, no external runtime requests, no npm
   dependencies beyond `docs/TECH.md`'s list without a DECISIONS.md entry.
-- **The domain name is a placeholder.** Nothing in the site — copy, config, metadata —
-  may reference or depend on it. Site name is "Standing Wave" everywhere.
+- **The site never names its own domain.** It is live at **standingwave.life**, but that
+  fact lives outside the source: nothing in the site — copy, config, metadata — may
+  reference or depend on it. Canonical URLs, the sitemap and the feed derive from the
+  `SITE_URL` build env, written down in exactly one place
+  (`.github/workflows/publish.yml`). `npm run verify` enforces this. Site name is
+  "Standing Wave" everywhere.
 
 ## The two tests for every finished page
 

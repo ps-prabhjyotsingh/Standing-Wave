@@ -44,8 +44,9 @@
 
 URL scheme (stable): `/essays/a-standing-wave/`, `/cabinet/c02-ship-of-theseus/`,
 `/marginalia/#017`, `/colophon/`. The site name is "standing wave" everywhere; the
-deployed domain must appear nowhere in content or config (PLAN.md — domain is a
-placeholder). Canonical URLs derive from `SITE_URL` env at build time.
+deployed domain (standingwave.life) must appear nowhere in content or config — it is
+supplied once, as `SITE_URL` in `.github/workflows/publish.yml`, and canonical URLs, the
+sitemap and the feed all derive from it at build time. `npm run verify` checks this.
 
 ## Cabinet piece contract
 
