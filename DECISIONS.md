@@ -185,3 +185,27 @@ reported success at every step it could observe, and the one step it could not p
 invisible until something outside it looked. A weekly job that fails this way fails
 silently — fifty-two green runs and an empty site. The fix is an access grant, but the
 lesson is that a scheduled writer needs someone checking the remote, not the logs.
+
+**2026-09-16 · Publishing an image was never shipping, and the docs said otherwise.**
+Marginalia 032 was committed, pushed, and built into a green GHCR image — and the live
+site did not change. `publish.yml` only built and pushed; putting the image on the swarm
+was a manual `docker service update` nobody was going to run. The site had been serving a
+five-week-old image the entire time. `DEPLOY.md` meanwhile said "merge to main and it
+ships", which is the same class of error as the sentence marginalia 032 is about: a
+confident document, believed by everyone who read it, contradicted by one command nobody
+ran.
+
+So the workflow now has a `deploy` job, and the claim is true. Two details are worth
+writing down because both cost something to learn. The image tag is `${{ github.sha }}`,
+the **full forty characters** — deploying the short SHA fails with `No such image` and
+pauses the rolling update, which is survivable only because `start-first` keeps the old
+tasks answering. And `docker stack deploy -c stack.yml` resets the service to `:latest`,
+so the stack file and the deploy job disagree by design; the stack file owns routing and
+resources, the deploy job owns which image is running.
+
+The deploy key is pinned server-side to a forced command that accepts one argument and
+validates it as a hex SHA. An unrestricted root key sitting in a third-party CI system
+would have been quicker and is a much larger blast radius than this job needs: a leaked
+deploy key can redeploy this one service at some commit, and cannot get a shell. The
+setup script is `scripts/swarm-deploy-setup.sh`, kept in the repo so the next person can
+see exactly what was granted.

@@ -49,3 +49,43 @@ jobs:
             ghcr.io/ps-prabhjyotsingh/standing-wave:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  # Publishing an image is not shipping. Until this job existed, a merge to main
+  # built a green image that nobody deployed, and the live site silently stayed
+  # weeks behind the repo — three stages each reporting success and a reader
+  # seeing nothing. See DECISIONS.md, 2026-09-16.
+  deploy:
+    needs: image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy the new image to the swarm
+        env:
+          SSH_KEY: ${{ secrets.SWARM_SSH_KEY }}
+          SWARM_HOST: ${{ secrets.SWARM_HOST }}
+          SWARM_USER: ${{ secrets.SWARM_USER }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_KEY:-}" ] || [ -z "${SWARM_HOST:-}" ]; then
+            echo "::warning::Swarm deploy secrets not set — image published but NOT deployed."
+            echo "Set SWARM_SSH_KEY, SWARM_HOST and SWARM_USER to enable deployment."
+            exit 0
+          fi
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          ssh-keyscan -H "$SWARM_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # The key is pinned server-side to a forced command that accepts only a
+          # 40-char hex SHA, so this is the entire vocabulary available to it.
+          ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes \
+            "${SWARM_USER:-deploy}@${SWARM_HOST}" "${{ github.sha }}"
+
+      - name: Confirm the deployed site serves this commit
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 20); do
+            if curl -fsS https://standingwave.life/ >/dev/null 2>&1; then
+              echo "site responding"; exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::Site did not respond after deploy"; exit 1
