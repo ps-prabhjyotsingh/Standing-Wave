@@ -46,14 +46,42 @@ If you change domains, rebuild. Nothing else needs touching.
 
 ## Deploying to the swarm
 
-The image is published automatically: `.github/workflows/publish.yml` builds and pushes
-`ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64 + arm64) on every push to main, with
-`SITE_URL` baked in. The swarm node only needs:
+`.github/workflows/publish.yml` builds and pushes
+`ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64) on every push to main with `SITE_URL`
+baked in, **and then deploys it** — a second job SSHes to the swarm manager and runs
+`docker service update` pinned to the commit SHA.
+
+> **Why the deploy job exists.** Until 2026-09-16 this file claimed "merge to main and it
+> ships", and it wasn't true: the workflow only published an image and the swarm had to be
+> told separately. The live site sat five weeks behind the repo while every stage reported
+> success. If the deploy job is ever removed, fix that sentence too.
+
+First-time setup, once:
+
+1. `ssh-keygen -t ed25519 -f ~/.ssh/swarm-deploy -N ""`
+2. Copy `scripts/swarm-deploy-setup.sh` to the manager and run it as root with the
+   **public** key as its argument. It creates a `deploy` user, installs a forced command,
+   and pins the key to it — that key can redeploy this one service at a given SHA and
+   nothing else. No shell, no port forwarding, no other service.
+3. Add three repository secrets on GitHub: `SWARM_SSH_KEY` (the **private** key),
+   `SWARM_HOST`, `SWARM_USER` (`deploy`). Without them the job warns and skips instead of
+   failing, so the image still publishes.
+
+Manual deploy, when you want one:
 
 ```sh
-docker stack deploy -c stack.yml standing-wave
+docker service update --image ghcr.io/ps-prabhjyotsingh/standing-wave:<full-40-char-sha> \
+  --update-order start-first standing-wave_web
 docker service ls
 ```
+
+⚠ **The tag must be the full 40-character SHA**, not the short one — the workflow tags with
+`${{ github.sha }}`. A short SHA fails with `No such image` and pauses the rolling update.
+Harmlessly: `start-first` keeps the old tasks serving, so the site stays up.
+
+⚠ **`docker stack deploy -c stack.yml` resets the service to `:latest`.** The stack file
+remains the source of truth for routing, resources and replicas, but the running image is
+SHA-pinned by the deploy job. After any `stack deploy`, redeploy the current SHA.
 
 If the package is private, `docker login ghcr.io` on the node first (a classic PAT with
 `read:packages`), and add `--with-registry-auth` to the deploy. Making the package public
