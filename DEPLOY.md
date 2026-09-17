@@ -46,15 +46,23 @@ If you change domains, rebuild. Nothing else needs touching.
 
 ## Deploying to the swarm
 
-`.github/workflows/publish.yml` builds and pushes
-`ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64) on every push to main with `SITE_URL`
-baked in, **and then deploys it** — a second job SSHes to the swarm manager and runs
-`docker service update` pinned to the commit SHA.
+Two separate things, on purpose.
 
-> **Why the deploy job exists.** Until 2026-09-16 this file claimed "merge to main and it
-> ships", and it wasn't true: the workflow only published an image and the swarm had to be
-> told separately. The live site sat five weeks behind the repo while every stage reported
-> success. If the deploy job is ever removed, fix that sentence too.
+**Every push to main publishes an image.** `.github/workflows/publish.yml` builds and
+pushes `ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64) with `SITE_URL` baked in. It does
+**not** go live.
+
+**Shipping is a manual act.** The `deploy` job runs only on `workflow_dispatch` — press
+*Run workflow* on the Actions tab, or `gh workflow run publish.yml`. It SSHes to the swarm
+manager and runs `docker service update` pinned to the commit SHA, then checks the site
+answers.
+
+> **Why it is split.** The weekly writing routine accumulates fragments; the owner ships
+> them in batches when he wants to. The known cost is that the repo can run ahead of the
+> live site — which is exactly what went unnoticed for five weeks before this file was
+> corrected, when it wrongly claimed "merge to main and it ships." The guard is that the
+> weekly run reports how far behind the live site is, in the notification the owner
+> already receives. If that report ever disappears, this gap goes back to being invisible.
 
 First-time setup, once:
 

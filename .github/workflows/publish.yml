@@ -50,12 +50,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # Publishing an image is not shipping. Until this job existed, a merge to main
-  # built a green image that nobody deployed, and the live site silently stayed
-  # weeks behind the repo — three stages each reporting success and a reader
-  # seeing nothing. See DECISIONS.md, 2026-09-16.
+  # Deploy is deliberately MANUAL: it runs only on workflow_dispatch, never on a
+  # push. The weekly routine accumulates fragments in the repo and the owner ships
+  # them in batches when he feels like it (DECISIONS.md, 2026-09-17).
+  #
+  # The cost of that choice is the gap this job was written to close: content can
+  # sit unshipped and nothing complains. The guard is that the weekly run reports
+  # how far behind the live site is, so the backlog is visible in the place the
+  # owner already looks.
   deploy:
     needs: image
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy the new image to the swarm
