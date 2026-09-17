@@ -209,3 +209,24 @@ would have been quicker and is a much larger blast radius than this job needs: a
 deploy key can redeploy this one service at some commit, and cannot get a shell. The
 setup script is `scripts/swarm-deploy-setup.sh`, kept in the repo so the next person can
 see exactly what was granted.
+
+**2026-09-17 · Shipping is manual again, and the staleness has to announce itself.**
+The owner's call, one day after the deploy job landed: the weekly routine accumulates
+fragments and he ships them in batches when he feels like it. So `deploy` now runs only on
+`workflow_dispatch`. A push to `main` publishes an image and stops.
+
+This deliberately reopens the gap the previous entry closed, and it is worth being precise
+about which part was the problem. The failure five weeks ago was not that deploying was
+manual. It was that nothing anywhere said the live site had fallen behind — the repo, the
+workflow and the docs all reported success, and the only way to find out was to look at
+the site and count. A manual step somebody has decided to own is a schedule. A manual step
+nobody can see the state of is a leak.
+
+So the guard is not automation, it is visibility: the weekly run now checks the deployed
+site against the repo and reports the backlog — *"three fragments written, none live, last
+shipped nine days ago"* — in the notification that arrives anyway. Batching becomes a
+choice made with a number in front of it rather than a thing that happens by forgetting.
+
+If a later session is tempted to drop that check because it looks like noise: the check is
+the entire reason this arrangement is safe, and marginalia 032 is about what happens when
+the document is more convenient to read than the world.
