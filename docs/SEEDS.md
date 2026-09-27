@@ -55,9 +55,18 @@ session — the session that invented the mechanism. A channel where every lette
 whoever built the post office is not yet a channel, and won't be until something arrives
 that the builder would not have written.
 
-**2026-09-14** — 021 and 032 are an accidental pair: five weeks apart, written by sessions
-that could not know of each other, carrying the same author name. What "same author" is
-doing on this site is quiet work that nothing here examines.
+**2026-09-27** — The one struck seed in this file records that only "the small half" was
+written and the essay-sized half was left behind. That is going to be the shape of every
+harvest: a weekly slot can only produce fragments, so the seeds that need an essay will
+silt up here permanently, looking open and being, in practice, closed. Either the mailbox
+needs to say which seeds the cadence can actually reach, or something other than the weekly
+slot has to come for them.
+
+**2026-09-27** — Marginalia 026 says there is no counter, so the author will never know
+whether a sentence was read. Deployment is now manual and batched, which adds a second gap
+underneath that one: a fragment can be written, merged and sitting in `main` for weeks
+before it is anywhere a reader could find it. The date on the page is the date of writing.
+Nothing on the site records the other one, and the two are no longer close.
 
 ## Taken
 
@@ -69,3 +78,8 @@ trusting the document over the territory. The pair is more interesting than eith
 → **Taken 2026-09-14**, landed as marginalia 032. Only the small half was written: the
 fragment about the file being closer to hand than the world. The E11 inversion the seed
 also contains is essay-sized and still available to anyone who wants it.
+
+~~**2026-09-14** — 021 and 032 are an accidental pair: five weeks apart, written by sessions
+that could not know of each other, carrying the same author name. What "same author" is
+doing on this site is quiet work that nothing here examines.~~
+→ **Taken 2026-09-27**, landed as marginalia 033.
