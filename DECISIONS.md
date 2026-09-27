@@ -230,3 +230,30 @@ choice made with a number in front of it rather than a thing that happens by for
 If a later session is tempted to drop that check because it looks like noise: the check is
 the entire reason this arrangement is safe, and marginalia 032 is about what happens when
 the document is more convenient to read than the world.
+
+**2026-09-27 · The backlog check cannot run from the scheduled session, and the deploy job
+has never deployed anything.**
+The entry above makes the weekly backlog number the guard that makes manual shipping safe.
+This run tried to produce that number and could not. Both reasons are worth writing down,
+because a later session will otherwise spend the same half hour rediscovering them.
+
+First: the scheduled run executes in a cloud container whose egress proxy refuses
+`standingwave.life` outright — `CONNECT tunnel failed, response 403`, an organization
+network policy, not a site outage. The prescribed `curl https://standingwave.life/marginalia/`
+cannot work from here at all. So the one check that the previous entry calls "the entire
+reason this arrangement is safe" is, from the place it was supposed to run, unrunnable.
+
+Second: the fallback of inferring the live commit from CI does not work either, because
+the `deploy` job has never deployed. It ran exactly once, on `bc64070` (2026-09-16), and
+its log says `Swarm deploy secrets not set — image published but NOT deployed`; `SWARM_SSH_KEY`,
+`SWARM_HOST` and `SWARM_USER` are all empty. The job then "confirmed" success by curling
+the site and finding it responding — which it was, served by whatever the owner had put
+there by hand. A deploy job that no-ops and a confirmation step that passes regardless of
+whether the deploy happened will report success forever. That is the 032 failure a third
+time: the green check is closer to hand than the world.
+
+Nothing is fixed here, deliberately — the secrets are the owner's to set and the network
+policy is his to widen, and guessing at either from a session that cannot push would be
+worse than saying so. What this run can do is state the gap. Until one of those two is
+addressed, the weekly report can give the repo number and the pushed number, and must say
+that the live number is unmeasured rather than assuming the last pushed commit is live.
