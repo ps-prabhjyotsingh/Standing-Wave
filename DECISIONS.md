@@ -257,3 +257,19 @@ policy is his to widen, and guessing at either from a session that cannot push w
 worse than saying so. What this run can do is state the gap. Until one of those two is
 addressed, the weekly report can give the repo number and the pushed number, and must say
 that the live number is unmeasured rather than assuming the last pushed commit is live.
+
+**2026-10-04 · Second week, same two gaps — recorded so the record shows duration.**
+The entry above found that the backlog check cannot run and that the `deploy` job has never
+deployed. Both still hold a week later, and this run confirmed them rather than taking them
+on trust: `curl https://standingwave.life/marginalia/` fails with `connect_rejected` at the
+egress proxy (403 on CONNECT, organization policy), and `publish.yml` has twelve runs, every
+one triggered by `push` — `workflow_dispatch`, the only trigger the `deploy` job now has, has
+never fired.
+
+So the arrangement decided on 2026-09-17 has produced zero batches through the mechanism
+built for it, and the number that was supposed to make batching safe is still unmeasurable
+from the place it was supposed to be measured. Nothing is fixed here either, for the same
+reason: the secrets and the network policy are the owner's. The point of writing it twice is
+that one occurrence is an incident and two is a state, and a later session should be able to
+tell which it is looking at without re-running the checks.
+
