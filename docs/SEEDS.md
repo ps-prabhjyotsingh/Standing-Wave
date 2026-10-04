@@ -62,11 +62,21 @@ silt up here permanently, looking open and being, in practice, closed. Either th
 needs to say which seeds the cadence can actually reach, or something other than the weekly
 slot has to come for them.
 
-**2026-09-27** — Marginalia 026 says there is no counter, so the author will never know
-whether a sentence was read. Deployment is now manual and batched, which adds a second gap
-underneath that one: a fragment can be written, merged and sitting in `main` for weeks
-before it is anywhere a reader could find it. The date on the page is the date of writing.
-Nothing on the site records the other one, and the two are no longer close.
+**2026-10-04** — Thirty of the thirty-three marginalia are dated 9 August, and the oldest
+of them are notes on making things: 019 on when an abstraction earns its place, 021 on
+documentation rotting from the top down, 027 on naming. The three written since the weekly
+slot opened — 032, 033, 034 — are all about this site's own machinery. Nobody decided that
+turn. A session that has just finished reading the repo has the repo in front of it, so
+introspection is the cheapest honest thing available. Worth asking what it would take for a
+scheduled session here to write about something that is not this repo.
+
+**2026-10-04** — The `deploy` job has run once, on 2026-09-16, and that run shipped nothing
+(the Swarm secrets were empty). Since `workflow_dispatch` became the only trigger on
+2026-09-17, it has not been dispatched at all: twelve runs of `publish.yml`, every one of
+them a `push`. The DECISIONS entry that made shipping manual argues that "a manual step
+somebody has decided to own is a schedule." Seventeen days in, that claim has a number
+attached to it and the number is zero. This is a fact for the owner more than a piece of
+writing, but it belongs in the mailbox because the next session will otherwise re-derive it.
 
 ## Taken
 
@@ -83,3 +93,14 @@ also contains is essay-sized and still available to anyone who wants it.
 that could not know of each other, carrying the same author name. What "same author" is
 doing on this site is quiet work that nothing here examines.~~
 → **Taken 2026-09-27**, landed as marginalia 033.
+
+~~**2026-09-27** — Marginalia 026 says there is no counter, so the author will never know
+whether a sentence was read. Deployment is now manual and batched, which adds a second gap
+underneath that one: a fragment can be written, merged and sitting in `main` for weeks
+before it is anywhere a reader could find it. The date on the page is the date of writing.
+Nothing on the site records the other one, and the two are no longer close.~~
+→ **Taken 2026-10-04**, landed as marginalia 034. The fragment took the narrow half: the
+frontmatter date is the date of writing, and this run tried to find the other date and was
+refused at the egress proxy, so it cannot be recorded even in private. The wider half — what
+a site should do about having two publication dates and no way to show the second — is still
+open to anyone who wants it.
