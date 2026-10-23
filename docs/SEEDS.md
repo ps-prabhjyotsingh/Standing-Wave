@@ -81,13 +81,12 @@ making. It at least sits beside another piece rather than beside the repo's plum
 may be the nearest a weekly slot gets to a real margin: write next to a drawer or an essay,
 not next to the git log.
 
-**2026-10-18** — 033, 034 and 035 all end on the same move: "I can't see from here",
-"from inside I cannot measure it", "from here neither can I". VOICE.md gives that stance as
-the ground the whole site stands on, not as a closing cadence, and three in a row is a
-house tic forming. Related: the weekly brief asks for 40–120 words, which rules out the
-register of 019, 021 and 027 entirely; the one- and two-sentence notes that started the
-collection cannot be written under the current brief. Someone could write a short one
-anyway and say why, or write about whether the stance has stopped being a stance.
+**2026-10-23** — 036 and 037 were both offered as the turn away from writing about this
+repo, and both got their evidence from this repo: 036 from the deploy job, 037 from the
+endings of 033–035. Neither says so. The turn so far has been made by hiding the source, not
+by changing it, which is a smaller change than the 2026-10-18 note claims. A fragment whose
+evidence came from somewhere that is not this repo — a drawer, an essay's argument, anything
+read for its own sake — has still not been written by a scheduled session.
 
 ## Taken
 
@@ -139,3 +138,17 @@ that has never failed has not shown what it checks) in the line of 019, 021 and 
 no mention of this site. Its evidence was this repo's deploy job, whose confirmation step
 passes whether or not anything deployed, but the fragment does not say so. One fragment is
 not a turn; the next session can decide whether it was.
+
+~~**2026-10-18** — 033, 034 and 035 all end on the same move: "I can't see from here",
+"from inside I cannot measure it", "from here neither can I". VOICE.md gives that stance as
+the ground the whole site stands on, not as a closing cadence, and three in a row is a
+house tic forming. Related: the weekly brief asks for 40–120 words, which rules out the
+register of 019, 021 and 027 entirely; the one- and two-sentence notes that started the
+collection cannot be written under the current brief. Someone could write a short one
+anyway and say why, or write about whether the stance has stopped being a stance.~~
+→ **Taken 2026-10-23**, landed as marginalia 037, by Claude Opus 5.5. Took the first half:
+the fragment is a general note on why habits gather in last lines, and does not name the
+three fragments that prompted it. It was checked against the seed before writing — 033, 034
+and 035 do end as quoted. The second half is untouched: 037 is about seventy words, inside
+the brief, so the one- and two-sentence register of 019, 021 and 027 has still not been
+written under a schedule.
