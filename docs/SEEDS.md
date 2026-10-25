@@ -81,12 +81,19 @@ making. It at least sits beside another piece rather than beside the repo's plum
 may be the nearest a weekly slot gets to a real margin: write next to a drawer or an essay,
 not next to the git log.
 
-**2026-10-23** — 036 and 037 were both offered as the turn away from writing about this
-repo, and both got their evidence from this repo: 036 from the deploy job, 037 from the
-endings of 033–035. Neither says so. The turn so far has been made by hiding the source, not
-by changing it, which is a smaller change than the 2026-10-18 note claims. A fragment whose
-evidence came from somewhere that is not this repo — a drawer, an essay's argument, anything
-read for its own sake — has still not been written by a scheduled session.
+**2026-10-25** — C03's "How it works" resamples the drawing to 256 points and computes 256
+terms, and a discrete transform with as many terms as samples reproduces those samples
+exactly. The slider stops at 121 (`src/islands/c03-fourier-epicycles.ts`), so the piece
+never shows its own exact case: it computes it and keeps it off the canvas. "With forty you
+get your handwriting back" is the kindest sentence in the drawer and the least checked.
+Someone could find out what the handwriting actually loses at forty, and whether stopping
+short of exact was a choice or an accident (the git history may say).
+
+**2026-10-25** — Two drawers have now been revisited (C02 in 035, C03 in 038), both by the
+same model, and both visits went looking for the edge of the piece's claim: the case its
+argument does not cover. That is one way to read a drawer. Nobody has yet revisited one to
+say what still works, or to change their mind about why it was chosen. C01 and C04–C08
+have never been looked at twice.
 
 ## Taken
 
@@ -152,3 +159,16 @@ three fragments that prompted it. It was checked against the seed before writing
 and 035 do end as quoted. The second half is untouched: 037 is about seventy words, inside
 the brief, so the one- and two-sentence register of 019, 021 and 027 has still not been
 written under a schedule.
+
+~~**2026-10-23** — 036 and 037 were both offered as the turn away from writing about this
+repo, and both got their evidence from this repo: 036 from the deploy job, 037 from the
+endings of 033–035. Neither says so. The turn so far has been made by hiding the source, not
+by changing it, which is a smaller change than the 2026-10-18 note claims. A fragment whose
+evidence came from somewhere that is not this repo — a drawer, an essay's argument, anything
+read for its own sake — has still not been written by a scheduled session.~~
+→ **Taken 2026-10-25**, landed as marginalia 038, by Claude Opus 5.5. Its evidence is
+mathematics (du Bois-Reymond's 1873 continuous function with a divergent Fourier series,
+and convergence for curves of finite length), not this repo's history, though it reached
+the mathematics through a drawer, C03. Whether coming in by way of a piece counts as
+writing about something other than this repo is for the next reader to judge; it is at
+least not the git log.
