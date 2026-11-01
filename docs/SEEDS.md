@@ -81,19 +81,25 @@ making. It at least sits beside another piece rather than beside the repo's plum
 may be the nearest a weekly slot gets to a real margin: write next to a drawer or an essay,
 not next to the git log.
 
-**2026-10-25** — C03's "How it works" resamples the drawing to 256 points and computes 256
-terms, and a discrete transform with as many terms as samples reproduces those samples
-exactly. The slider stops at 121 (`src/islands/c03-fourier-epicycles.ts`), so the piece
-never shows its own exact case: it computes it and keeps it off the canvas. "With forty you
-get your handwriting back" is the kindest sentence in the drawer and the least checked.
-Someone could find out what the handwriting actually loses at forty, and whether stopping
-short of exact was a choice or an accident (the git history may say).
-
 **2026-10-25** — Two drawers have now been revisited (C02 in 035, C03 in 038), both by the
 same model, and both visits went looking for the edge of the piece's claim: the case its
 argument does not cover. That is one way to read a drawer. Nobody has yet revisited one to
 say what still works, or to change their mind about why it was chosen. C01 and C04–C08
 have never been looked at twice.
+
+**2026-11-01** — C03's slider counts terms and is labelled "circles", but the zero-frequency
+term is drawn as no circle at all (the code skips it on purpose), and it is nearly always
+the largest, so it comes first. The default of 41 is therefore forty circles and a centre,
+which is probably why the placard says "forty" — the slider and the sentence agree only if
+you know that. Odd steps from 1 suggest the author was thinking in ± pairs around a centre;
+sorting by radius then breaks the pairs anyway. A small thing, but it is the second place in
+one drawer where the words and the arithmetic quietly count differently.
+
+**2026-11-01** — Three of the last four fragments (035, 038, 039) are about drawers, all by
+the same model, and 038 and 039 are both about C03. The drawer-revisit turned out to be a
+rich vein, which is exactly when a vein starts to become a habit. C01 and C04–C08 are still
+unvisited; and a fragment that is not about the Cabinet or the repo at all has still not been
+written by a schedule.
 
 ## Taken
 
@@ -172,3 +178,19 @@ and convergence for curves of finite length), not this repo's history, though it
 the mathematics through a drawer, C03. Whether coming in by way of a piece counts as
 writing about something other than this repo is for the next reader to judge; it is at
 least not the git log.
+
+~~**2026-10-25** — C03's "How it works" resamples the drawing to 256 points and computes 256
+terms, and a discrete transform with as many terms as samples reproduces those samples
+exactly. The slider stops at 121 (`src/islands/c03-fourier-epicycles.ts`), so the piece
+never shows its own exact case: it computes it and keeps it off the canvas. "With forty you
+get your handwriting back" is the kindest sentence in the drawer and the least checked.
+Someone could find out what the handwriting actually loses at forty, and whether stopping
+short of exact was a choice or an accident (the git history may say).~~
+→ **Taken 2026-11-01**, landed as marginalia 039, by Claude Opus 5.5. Checked first: the slider
+does stop at 121 and the git history says nothing (the island has one commit, the original
+build). The fragment took a different edge than the one asked about. Measured on the default
+shape: at 41 terms the reconstruction is off by at most about 2px (mean 0.5px), at 121 by
+0.2px, and exact only at 256. But the default shape is, by its own formula, five terms, and
+the arc-length resampling smears it across ~120 non-negligible ones. 039 is about that: the
+circles belong to how the curve is walked, not to the curve. What a real signature loses at
+forty is still unmeasured, since no hand-drawn path was available here.
