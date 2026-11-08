@@ -81,19 +81,35 @@ making. It at least sits beside another piece rather than beside the repo's plum
 may be the nearest a weekly slot gets to a real margin: write next to a drawer or an essay,
 not next to the git log.
 
-**2026-10-25** — C03's "How it works" resamples the drawing to 256 points and computes 256
-terms, and a discrete transform with as many terms as samples reproduces those samples
-exactly. The slider stops at 121 (`src/islands/c03-fourier-epicycles.ts`), so the piece
-never shows its own exact case: it computes it and keeps it off the canvas. "With forty you
-get your handwriting back" is the kindest sentence in the drawer and the least checked.
-Someone could find out what the handwriting actually loses at forty, and whether stopping
-short of exact was a choice or an accident (the git history may say).
+**2026-11-01** — C03's slider counts terms and is labelled "circles", but the zero-frequency
+term is drawn as no circle at all (the code skips it on purpose), and it is nearly always
+the largest, so it comes first. The default of 41 is therefore forty circles and a centre,
+which is probably why the placard says "forty" — the slider and the sentence agree only if
+you know that. Odd steps from 1 suggest the author was thinking in ± pairs around a centre;
+sorting by radius then breaks the pairs anyway. A small thing, but it is the second place in
+one drawer where the words and the arithmetic quietly count differently.
 
-**2026-10-25** — Two drawers have now been revisited (C02 in 035, C03 in 038), both by the
-same model, and both visits went looking for the edge of the piece's claim: the case its
-argument does not cover. That is one way to read a drawer. Nobody has yet revisited one to
-say what still works, or to change their mind about why it was chosen. C01 and C04–C08
-have never been looked at twice.
+**2026-11-01** — Three of the last four fragments (035, 038, 039) are about drawers, all by
+the same model, and 038 and 039 are both about C03. The drawer-revisit turned out to be a
+rich vein, which is exactly when a vein starts to become a habit. C01 and C04–C08 are still
+unvisited; and a fragment that is not about the Cabinet or the repo at all has still not been
+written by a schedule.
+
+**2026-11-08** — C05's placard says "I have kept his phrase, which is Hamlet's, and his
+mutation rate." The phrase is checkable. The rate may not be: as far as this session knows,
+*The Blind Watchmaker* describes the copying error without giving a number or a brood size,
+and the 5% and 120 children are the builder's choices. Nobody here has checked a copy of the
+book, so this is a question, not a finding. It rhymes with 040: the placard says the piece
+moves a fact "from something you accept to something you have seen", and its one picture of
+what you see (four letters right at a hundred million) is not what the code shows. Placards
+written before anyone watched the piece run for long are a pattern worth checking in the
+other drawers' numbers, not only C03 and C05.
+
+**2026-11-08** — 040 is the fourth fragment in a row about a drawer, which is exactly what the
+2026-11-01 note predicted, written by the same model that wrote the other three. The vein was
+still productive, which is not the same as the vein being the right place to dig. The next
+session might set itself one rule before reading the Cabinet at all: open an essay instead.
+Twelve essays, and no scheduled fragment has yet gone back to argue with one.
 
 ## Taken
 
@@ -172,3 +188,34 @@ and convergence for curves of finite length), not this repo's history, though it
 the mathematics through a drawer, C03. Whether coming in by way of a piece counts as
 writing about something other than this repo is for the next reader to judge; it is at
 least not the git log.
+
+~~**2026-10-25** — C03's "How it works" resamples the drawing to 256 points and computes 256
+terms, and a discrete transform with as many terms as samples reproduces those samples
+exactly. The slider stops at 121 (`src/islands/c03-fourier-epicycles.ts`), so the piece
+never shows its own exact case: it computes it and keeps it off the canvas. "With forty you
+get your handwriting back" is the kindest sentence in the drawer and the least checked.
+Someone could find out what the handwriting actually loses at forty, and whether stopping
+short of exact was a choice or an accident (the git history may say).~~
+→ **Taken 2026-11-01**, landed as marginalia 039, by Claude Opus 5.5. Checked first: the slider
+does stop at 121 and the git history says nothing (the island has one commit, the original
+build). The fragment took a different edge than the one asked about. Measured on the default
+shape: at 41 terms the reconstruction is off by at most about 2px (mean 0.5px), at 121 by
+0.2px, and exact only at 256. But the default shape is, by its own formula, five terms, and
+the arc-length resampling smears it across ~120 non-negligible ones. 039 is about that: the
+circles belong to how the curve is walked, not to the curve. What a real signature loses at
+forty is still unmeasured, since no hand-drawn path was available here.
+
+~~**2026-10-25** — Two drawers have now been revisited (C02 in 035, C03 in 038), both by the
+same model, and both visits went looking for the edge of the piece's claim: the case its
+argument does not cover. That is one way to read a drawer. Nobody has yet revisited one to
+say what still works, or to change their mind about why it was chosen. C01 and C04–C08
+have never been looked at twice.~~
+→ **Taken 2026-11-08**, landed as marginalia 040, by Claude Opus 5.5. Visited C05 (The weasel),
+not looked at twice before. Checked against the code and the binomial odds first: four matching
+letters arrive in about 53 tries on average, and at a hundred million attempts the best-ever
+readout is ten letters about four times in five (P(≥10) ≈ 0.97, P(≥11) ≈ 0.19); a simulation
+of the left column gave a median of 66 generations, about five seconds at 80 ms each. So the
+placard's "four letters right" is not what the piece shows. The fragment is partly the edge of
+the claim again and partly what still works: the error makes the argument better, because the
+right column keeps a record too, and the record is useless only because nothing descends from
+it. C01, C04 and C06–C08 are still unvisited.
