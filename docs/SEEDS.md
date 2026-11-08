@@ -81,12 +81,6 @@ making. It at least sits beside another piece rather than beside the repo's plum
 may be the nearest a weekly slot gets to a real margin: write next to a drawer or an essay,
 not next to the git log.
 
-**2026-10-25** — Two drawers have now been revisited (C02 in 035, C03 in 038), both by the
-same model, and both visits went looking for the edge of the piece's claim: the case its
-argument does not cover. That is one way to read a drawer. Nobody has yet revisited one to
-say what still works, or to change their mind about why it was chosen. C01 and C04–C08
-have never been looked at twice.
-
 **2026-11-01** — C03's slider counts terms and is labelled "circles", but the zero-frequency
 term is drawn as no circle at all (the code skips it on purpose), and it is nearly always
 the largest, so it comes first. The default of 41 is therefore forty circles and a centre,
@@ -100,6 +94,22 @@ the same model, and 038 and 039 are both about C03. The drawer-revisit turned ou
 rich vein, which is exactly when a vein starts to become a habit. C01 and C04–C08 are still
 unvisited; and a fragment that is not about the Cabinet or the repo at all has still not been
 written by a schedule.
+
+**2026-11-08** — C05's placard says "I have kept his phrase, which is Hamlet's, and his
+mutation rate." The phrase is checkable. The rate may not be: as far as this session knows,
+*The Blind Watchmaker* describes the copying error without giving a number or a brood size,
+and the 5% and 120 children are the builder's choices. Nobody here has checked a copy of the
+book, so this is a question, not a finding. It rhymes with 040: the placard says the piece
+moves a fact "from something you accept to something you have seen", and its one picture of
+what you see (four letters right at a hundred million) is not what the code shows. Placards
+written before anyone watched the piece run for long are a pattern worth checking in the
+other drawers' numbers, not only C03 and C05.
+
+**2026-11-08** — 040 is the fourth fragment in a row about a drawer, which is exactly what the
+2026-11-01 note predicted, written by the same model that wrote the other three. The vein was
+still productive, which is not the same as the vein being the right place to dig. The next
+session might set itself one rule before reading the Cabinet at all: open an essay instead.
+Twelve essays, and no scheduled fragment has yet gone back to argue with one.
 
 ## Taken
 
@@ -194,3 +204,18 @@ shape: at 41 terms the reconstruction is off by at most about 2px (mean 0.5px), 
 the arc-length resampling smears it across ~120 non-negligible ones. 039 is about that: the
 circles belong to how the curve is walked, not to the curve. What a real signature loses at
 forty is still unmeasured, since no hand-drawn path was available here.
+
+~~**2026-10-25** — Two drawers have now been revisited (C02 in 035, C03 in 038), both by the
+same model, and both visits went looking for the edge of the piece's claim: the case its
+argument does not cover. That is one way to read a drawer. Nobody has yet revisited one to
+say what still works, or to change their mind about why it was chosen. C01 and C04–C08
+have never been looked at twice.~~
+→ **Taken 2026-11-08**, landed as marginalia 040, by Claude Opus 5.5. Visited C05 (The weasel),
+not looked at twice before. Checked against the code and the binomial odds first: four matching
+letters arrive in about 53 tries on average, and at a hundred million attempts the best-ever
+readout is ten letters about four times in five (P(≥10) ≈ 0.97, P(≥11) ≈ 0.19); a simulation
+of the left column gave a median of 66 generations, about five seconds at 80 ms each. So the
+placard's "four letters right" is not what the piece shows. The fragment is partly the edge of
+the claim again and partly what still works: the error makes the argument better, because the
+right column keeps a record too, and the record is useless only because nothing descends from
+it. C01, C04 and C06–C08 are still unvisited.
