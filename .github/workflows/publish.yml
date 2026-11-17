@@ -1,6 +1,7 @@
-# Builds the site image and publishes it to GitHub Container Registry on every push
-# to main. The Dockerfile runs the full verification (link check, stills, CSP
-# generation, nginx -t) inside the build, so a broken site can't produce an image.
+# On every push to main: builds the site image, publishes it to GitHub Container
+# Registry, and deploys it to the swarm. The Dockerfile runs the full verification
+# (link check, stills, CSP generation, nginx -t) inside the build, so a broken site
+# can't produce an image, and the deploy job only runs if the image job passed.
 
 name: publish
 
@@ -9,9 +10,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Don't cancel a run in progress: it may be partway through a rolling update.
+# A newer push waits, and replaces any older run still waiting.
 concurrency:
   group: publish
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   SITE_URL: https://standingwave.life # the one place the domain lives; change it here
@@ -50,20 +53,20 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # Deploy is deliberately MANUAL: it runs only on workflow_dispatch, never on a
-  # push. The weekly routine accumulates fragments in the repo and the owner ships
-  # them in batches when he feels like it (DECISIONS.md, 2026-09-17).
+  # Every push to main goes live (owner's decision, DECISIONS.md 2026-11-16).
+  # workflow_dispatch redeploys the current commit by hand.
   #
-  # The cost of that choice is the gap this job was written to close: content can
-  # sit unshipped and nothing complains. The guard is that the weekly run reports
-  # how far behind the live site is, so the backlog is visible in the place the
-  # owner already looks.
+  # This job must never pass without deploying. It ran green once in September
+  # while doing nothing: the secrets were empty, it warned and exited 0, and the
+  # "confirmation" curled a site that was serving an old image. So missing
+  # secrets now fail the job, and the server-side command (scripts/
+  # swarm-deploy-setup.sh) exits 0 only once every replica runs this SHA.
   deploy:
     needs: image
-    if: github.event_name == 'workflow_dispatch'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy the new image to the swarm
+      - name: Deploy this commit to the swarm
         env:
           SSH_KEY: ${{ secrets.SWARM_SSH_KEY }}
           SWARM_HOST: ${{ secrets.SWARM_HOST }}
@@ -71,9 +74,8 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "${SSH_KEY:-}" ] || [ -z "${SWARM_HOST:-}" ]; then
-            echo "::warning::Swarm deploy secrets not set — image published but NOT deployed."
-            echo "Set SWARM_SSH_KEY, SWARM_HOST and SWARM_USER to enable deployment."
-            exit 0
+            echo "::error::SWARM_SSH_KEY / SWARM_HOST not set. The image was published but is NOT live. See DEPLOY.md."
+            exit 1
           fi
           mkdir -p ~/.ssh
           printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
@@ -82,13 +84,13 @@ jobs:
           # The key is pinned server-side to a forced command that accepts only a
           # 40-char hex SHA, so this is the entire vocabulary available to it.
           ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes \
-            "${SWARM_USER:-deploy}@${SWARM_HOST}" "${{ github.sha }}"
+            "${SWARM_USER:-sw-deploy}@${SWARM_HOST}" "${{ github.sha }}"
 
-      - name: Confirm the deployed site serves this commit
+      - name: Confirm the site answers
         run: |
           set -euo pipefail
-          for i in $(seq 1 20); do
-            if curl -fsS https://standingwave.life/ >/dev/null 2>&1; then
+          for i in $(seq 1 12); do
+            if curl -fsS "$SITE_URL/" >/dev/null 2>&1; then
               echo "site responding"; exit 0
             fi
             sleep 10

@@ -46,34 +46,34 @@ If you change domains, rebuild. Nothing else needs touching.
 
 ## Deploying to the swarm
 
-Two separate things, on purpose.
+**Every push to main goes live.** `.github/workflows/publish.yml` builds and pushes
+`ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64) with `SITE_URL` baked in, tagged
+`:latest` and with the full commit SHA. If that succeeds, the `deploy` job SSHes to the
+swarm manager and rolls `standing-wave_web` onto that SHA. *Run workflow* on the Actions
+tab redeploys the current commit by hand.
 
-**Every push to main publishes an image.** `.github/workflows/publish.yml` builds and
-pushes `ghcr.io/ps-prabhjyotsingh/standing-wave` (amd64) with `SITE_URL` baked in. It does
-**not** go live.
+The deploy job fails rather than skips when something is missing. A red `deploy` job means
+the image exists but the site is still serving the previous commit; it never means
+"deployed, probably." The server-side command waits for the rolling update to converge and
+exits 0 only when every replica is running the requested SHA.
 
-**Shipping is a manual act.** The `deploy` job runs only on `workflow_dispatch` — press
-*Run workflow* on the Actions tab, or `gh workflow run publish.yml`. It SSHes to the swarm
-manager and runs `docker service update` pinned to the commit SHA, then checks the site
-answers.
-
-> **Why it is split.** The weekly writing routine accumulates fragments; the owner ships
-> them in batches when he wants to. The known cost is that the repo can run ahead of the
-> live site — which is exactly what went unnoticed for five weeks before this file was
-> corrected, when it wrongly claimed "merge to main and it ships." The guard is that the
-> weekly run reports how far behind the live site is, in the notification the owner
-> already receives. If that report ever disappears, this gap goes back to being invisible.
+> **History.** From 2026-09-17 to 2026-11-16 shipping was manual and batched. In two
+> months the manual trigger was never pressed and the live site fell 21 commits behind,
+> so it was switched back. See DECISIONS.md for both entries.
 
 First-time setup, once:
 
-1. `ssh-keygen -t ed25519 -f ~/.ssh/swarm-deploy -N ""`
+1. `ssh-keygen -t ed25519 -f ~/.ssh/swarm-deploy -N ""` (the key already exists on the
+   owner's Mac).
 2. Copy `scripts/swarm-deploy-setup.sh` to the manager and run it as root with the
-   **public** key as its argument. It creates a `deploy` user, installs a forced command,
-   and pins the key to it — that key can redeploy this one service at a given SHA and
-   nothing else. No shell, no port forwarding, no other service.
-3. Add three repository secrets on GitHub: `SWARM_SSH_KEY` (the **private** key),
-   `SWARM_HOST`, `SWARM_USER` (`deploy`). Without them the job warns and skips instead of
-   failing, so the image still publishes.
+   **public** key as its argument. It creates a `sw-deploy` user, installs a forced
+   command, and pins the key to it. That key can redeploy this one service at a given SHA
+   and do nothing else: no shell, no port forwarding, no other service.
+3. Check it from the Mac: `ssh -i ~/.ssh/swarm-deploy sw-deploy@<host> $(git rev-parse HEAD)`
+   should print `live: 2 of 2 replicas on …`, and `… sw-deploy@<host> id` should be refused.
+4. Add three repository secrets on GitHub: `SWARM_SSH_KEY` (the **private** key),
+   `SWARM_HOST` (the manager's address), `SWARM_USER` (`sw-deploy`). Without them the
+   deploy job fails on every push.
 
 Manual deploy, when you want one:
 
@@ -103,7 +103,8 @@ not drop requests.
 ## The three questions, answered (2026-08-09)
 
 1. **Registry:** GitHub Container Registry, built and pushed by Actions on every push to
-   main. No local Docker or credentials needed to release — merge to main and it ships.
+   main. No local Docker or credentials needed to release: merge to main and it ships
+   (true again since 2026-11-16, once the deploy secrets are set).
 2. **Ingress:** Traefik on the external `inbound` network, same conventions as the other
    stacks on this swarm; TLS terminates at Traefik.
 3. **Domain:** `standingwave.life`. It lives in exactly two places — the `SITE_URL` env in

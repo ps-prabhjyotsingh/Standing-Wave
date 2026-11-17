@@ -273,3 +273,26 @@ reason: the secrets and the network policy are the owner's. The point of writing
 that one occurrence is an incident and two is a state, and a later session should be able to
 tell which it is looking at without re-running the checks.
 
+
+**2026-11-16 · Every push to main deploys again. The owner's call.**
+This reverses the 2026-09-17 entry. The record below that entry already made the case:
+the manual trigger was never pressed in two months, and the backlog check meant to make
+batching safe could not run from the scheduled session. The owner deployed by hand today,
+found the live site still serving marginalia 034 while `main` was at 041, 21 commits
+behind, and asked for the deploy to happen on push.
+
+Two things changed besides the trigger, because the September job's real defect was that
+it could pass without deploying. Missing secrets now fail the job instead of warning and
+exiting 0. And the server-side forced command waits for the rolling update to converge,
+then exits non-zero unless every replica is running the requested SHA, so a green
+`deploy` means the commit is live rather than that a request was sent. The old
+confirmation step, a curl that any running site would pass, stays only as a smoke test.
+
+The forced-command setup in `scripts/swarm-deploy-setup.sh` had also never been run, and
+had a bug that would have surfaced once it was: it created the user with a `nologin`
+shell, and sshd runs forced commands through the login shell, so every deploy would have
+been refused. It now uses `/bin/sh` and the `restrict` key option, and a dedicated
+`sw-deploy` user.
+
+With this, the weekly backlog report is no longer the guard. A red `deploy` job on `main`
+is. A later session should report that state, not try to measure the live site.
