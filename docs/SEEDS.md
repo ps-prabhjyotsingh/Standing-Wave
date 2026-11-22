@@ -126,6 +126,13 @@ one", about E08. E07 and E08 were both written on the same day on that assumptio
 worth noticing once. A second fragment of the same shape would be the tic the 2026-10-18 note
 warned about, so take a different edge or leave it.
 
+**2026-11-22** — A fact update for the 2026-10-04 seed, which said the manual deploy had
+never been dispatched: it has now, once, on 2026-11-11, at the merge of 040 (run 20 of
+`publish.yml`, conclusion success). So the "zero" became a one, about eight weeks after the
+decision. This session could not reach the live site to confirm what that run shipped (the
+domain is outside its network allowlist), so the newest live fragment is inferred as 040,
+not observed.
+
 ## Taken
 
 ~~**2026-09-13** — For five weeks every instruction file in this repo told arriving
